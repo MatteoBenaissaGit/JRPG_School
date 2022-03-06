@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,9 +12,11 @@ public class CharacterController : MonoBehaviour
     [Header("--- Debug ---")]
     [SerializeField] private Logger _logger;
 
-    private Vector2 _lastClickedPos;
+    [HideInInspector] public bool Canmove;
     private bool _moving;
-    private NavMeshAgent _CharacterNavMeshAgent;
+    private Vector2 _lastClickedPos;
+    
+    private NavMeshAgent _characterNavMeshAgent;
 
     private void Start()
     {
@@ -28,7 +31,7 @@ public class CharacterController : MonoBehaviour
 
     private void ClickToMove()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && Canmove)
         {
             _lastClickedPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             _moving = true;
@@ -42,10 +45,10 @@ public class CharacterController : MonoBehaviour
         if (_moving)
         {
             float step = CharacterSpeed * Time.deltaTime;
-            _CharacterNavMeshAgent.SetDestination(_lastClickedPos);
+            _characterNavMeshAgent.SetDestination(_lastClickedPos);
             FlipCharacter(); 
         }
-        if (_moving && (Vector2)transform.position == (Vector2)_CharacterNavMeshAgent.destination)
+        if (_moving && (Vector2)transform.position == (Vector2)_characterNavMeshAgent.destination)
         {
             _logger.Log($"Stopped", this);
             _moving = false;
@@ -64,10 +67,11 @@ public class CharacterController : MonoBehaviour
 
     private void CharacterNavMeshUpdate()
     {
-        _CharacterNavMeshAgent = GetComponent<NavMeshAgent>();
-        _CharacterNavMeshAgent.updateRotation = false;
-        _CharacterNavMeshAgent.updateUpAxis = false;
-        _CharacterNavMeshAgent.speed = CharacterSpeed;
-        _CharacterNavMeshAgent.acceleration = CharacterAcceleration;
+        Canmove = true;
+        _characterNavMeshAgent = GetComponent<NavMeshAgent>();
+        _characterNavMeshAgent.updateRotation = false;
+        _characterNavMeshAgent.updateUpAxis = false;
+        _characterNavMeshAgent.speed = CharacterSpeed;
+        _characterNavMeshAgent.acceleration = CharacterAcceleration;
     }
 }
