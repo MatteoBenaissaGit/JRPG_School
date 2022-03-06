@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIFunctions : MonoBehaviour
+public class CanvasManager : MonoBehaviour
 {
     [SerializeField] private CharacterController _characterController;
     [SerializeField] private Logger _logger;
