@@ -95,5 +95,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a09679d298fb5ec4f99d8bcfbaf69fe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TransformSizeMultiplicator: 2
-  TransformTime: 0.5
+  _transformSizeMultiplicator: 2
+  _transformTime: 0.5
