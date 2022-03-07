@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class CharacterVisualEffectManager : MonoBehaviour
 {
-    [Header("Click Effet Prefab")]
+    [Header("Variables")]
+    [SerializeField] private int _charactersOrderInLayer;
+    [Header("Effects")]
     [SerializeField] private GameObject _clickEffetPrefab;
-    [Header("Followers")]
-    [SerializeField] private List<GameObject> _followersList;
+    [Header("Characters List (Put Character and Followers here)")]
+    [SerializeField] private List<GameObject> _charactersList;
+    [Header("----Debug----")]
+    [SerializeField] private Logger _logger;
+
+    public List<float> depthorder;
 
     private void Update()
     {
@@ -27,15 +33,14 @@ public class CharacterVisualEffectManager : MonoBehaviour
             EffetLauncher(_clickEffetPrefab, Vector3.Scale(Camera.main.ScreenToWorldPoint(Input.mousePosition), new Vector3(1, 1, 0)));
     }
 
+    private static int CompareDinosByLength(GameObject x, GameObject y)
+    {
+        return (x.transform.position.y > y.transform.position.y) ? -1 : 1;
+    }
     private void DepthManagement()
     {
-        for (int i = 0; i < _followersList.Count; i++)
-        {
-            //for (int i = 0; i < length; i++)
-            //{
-            //    if (_followersList[i].transform.position.y < _followersList[i + 1].transform.position.y)
-            //        _followersList[i].GetComponent<SpriteRenderer>().sortingOrder++;
-            //}
-        }
+        _charactersList.Sort(CompareDinosByLength);
+        for (int i = 0; i < _charactersList.Count; i++)
+            _charactersList[i].GetComponent<SpriteRenderer>().sortingOrder = _charactersOrderInLayer + i;
     }
 }

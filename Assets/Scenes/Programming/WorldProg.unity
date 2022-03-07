@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 136803393}
   - component: {fileID: 136803396}
   - component: {fileID: 136803395}
+  - component: {fileID: 136803397}
   m_Layer: 0
   m_Name: Follower2
   m_TagString: Untagged
@@ -270,6 +271,32 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!61 &136803397
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136803391}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.16, y: 0.32}
+    newSize: {x: 0.64, y: 0.64}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.16, y: 0.32}
+  m_EdgeRadius: 0
 --- !u!1 &178208074
 GameObject:
   m_ObjectHideFlags: 0
@@ -283,6 +310,7 @@ GameObject:
   - component: {fileID: 178208076}
   - component: {fileID: 178208079}
   - component: {fileID: 178208078}
+  - component: {fileID: 178208080}
   m_Layer: 0
   m_Name: Follower1
   m_TagString: Untagged
@@ -298,7 +326,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 178208074}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.662, y: 0.019, z: 0.595}
+  m_LocalPosition: {x: 0.589, y: 0.003, z: 0.595}
   m_LocalScale: {x: 1.0280932, y: 1.0280932, z: 1.0280932}
   m_Children: []
   m_Father: {fileID: 1485897435}
@@ -417,6 +445,32 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!61 &178208080
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 178208074}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.16, y: 0.32}
+    newSize: {x: 0.64, y: 0.64}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.16, y: 0.32}
+  m_EdgeRadius: 0
 --- !u!1 &342389786
 GameObject:
   m_ObjectHideFlags: 0
@@ -778,7 +832,7 @@ NavMeshAgent:
   m_Radius: 0.09
   m_Speed: 3.5
   m_Acceleration: 8
-  avoidancePriority: 50
+  avoidancePriority: 1
   m_AngularSpeed: 360
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
@@ -800,7 +854,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b44082d6c8f8cf4ab8adffde4371a81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _charactersOrderInLayer: 10
   _clickEffetPrefab: {fileID: 4576166919603298923, guid: 533c2bbc95a7f944fad39c87973760c9, type: 3}
+  _charactersList:
+  - {fileID: 521809353}
+  - {fileID: 178208074}
+  - {fileID: 136803391}
+  _logger: {fileID: 1753921801}
+  depthorder: []
 --- !u!114 &521809362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2295,6 +2356,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1397654356}
+  - component: {fileID: 1397654357}
   m_Layer: 0
   m_Name: CharactersParent
   m_TagString: Untagged
@@ -2318,6 +2380,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1397654357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1397654355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b05b7c0ceaf2a6499886fad3d557195, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _logger: {fileID: 1281217683}
 --- !u!1 &1417964468
 GameObject:
   m_ObjectHideFlags: 3
@@ -2799,7 +2874,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64ad00d69ce7ec34bad3fe5a1c6f59ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _showLogs: 0
+  _showLogs: 1
   _prefix: Character
   _prefixColor: 1
 --- !u!1 &1911645535
