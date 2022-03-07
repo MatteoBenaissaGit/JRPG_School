@@ -9,21 +9,23 @@ public class PlayerManager : MonoBehaviour
     public List<CharacterCombatAttributes> ListChars;
 
     public SpriteRenderer PlayerSpriteRenderer;
+    [Header("---Debug---")]
+    [SerializeField] private Logger _logger;
 
-    private int selectedPlayerIndex = 0;
+    private int _selectedPlayerIndex = 0;
 
     private void Start()
     {
-        _selectedChar = ListChars[selectedPlayerIndex];
+        _selectedChar = ListChars[_selectedPlayerIndex];
         UpdateCharSprite();
-        Debug.Log(_selectedChar.HP);
+        _logger.Log($"HP of {this.name} : {_selectedChar.HP}", this);
     }
     public void OnClickNextCharacter()
     {
         IncreaseIndex();
-        _selectedChar = ListChars[selectedPlayerIndex];
+        _selectedChar = ListChars[_selectedPlayerIndex];
         UpdateCharSprite();
-        Debug.Log(_selectedChar.HP);
+        _logger.Log($"HP of {this.name} : {_selectedChar.HP}",this);
     }
 
     void UpdateCharSprite()
@@ -33,6 +35,6 @@ public class PlayerManager : MonoBehaviour
 
     void IncreaseIndex()
     {
-        selectedPlayerIndex = (selectedPlayerIndex + 1) % ListChars.Count;
+        _selectedPlayerIndex = (_selectedPlayerIndex + 1) % ListChars.Count;
     }
 }

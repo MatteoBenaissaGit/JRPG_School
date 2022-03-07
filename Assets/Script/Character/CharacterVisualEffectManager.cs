@@ -13,8 +13,6 @@ public class CharacterVisualEffectManager : MonoBehaviour
     [Header("----Debug----")]
     [SerializeField] private Logger _logger;
 
-    public List<float> depthorder;
-
     private void Update()
     {
         ClickEffetChecker();
