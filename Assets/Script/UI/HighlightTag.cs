@@ -14,24 +14,28 @@ public class HighlightTag : MonoBehaviour
     public Image Background;
 
     [Header("Effect Variables")]
-    [SerializeField] private float _scaleMultiplicator;
-    [SerializeField] private float _scaleDuration;
+    [SerializeField] [Range(0.1f,3.0f)] private float _scaleMultiplicator;
+    [SerializeField] [Range(0.1f, 1.0f)] private float _scaleDuration;
 
     [Header("Character's parameter List")]
     [SerializeField] private CharactersParametersList _charactersParameterList;
+
+    [Header("Character's parameter List")]
+    [SerializeField] private Logger _logger;
 
     private void Awake()
     {
         transform.localScale = Vector3.zero;    
     }
 
-    public void ShowHighlightTag()
+    public void ShowHighlightTag(int character_number)
     {
-        _charactersParameterList.UpdateCharactersInformations();
+        _charactersParameterList.UpdateTagInformations(character_number);
         transform.DOScale(new Vector3(_scaleMultiplicator, _scaleMultiplicator, _scaleMultiplicator), _scaleDuration);
     }
     public void HideHighlightTag()
     {
-        transform.DOScale(Vector3.zero, _scaleDuration);
+        transform.DOKill();
+        transform.DOScale(Vector3.zero, _scaleDuration/2);
     }
 }

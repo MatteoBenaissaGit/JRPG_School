@@ -13,19 +13,23 @@ public class CharactersAttribute
 }
 public class CharacterSwitch : MonoBehaviour
 {
-    public List<CharactersAttribute> CharactersList;
+    [SerializeField] private CharactersParametersList _characterParametersList;
     [HideInInspector] public List<AnimatorController> ControllersList;
     [HideInInspector] public List<string> NamesList;
+    [HideInInspector] public List<Sprite> IconList;
+    [HideInInspector] public List<float> LifeList;
 
     [Header("---Debug---")]
     [SerializeField] private Logger _logger;
 
     private void Start()
     {
-        for (int i = 0; i < CharactersList.Count; i++)
+        for (int i = 0; i < _characterParametersList.CharactersListing.Count; i++)
         {
-            ControllersList.Add(CharactersList[i].AnimatorController);
-            NamesList.Add(CharactersList[i].Name);
+            ControllersList.Add(_characterParametersList.CharactersListing[i].AnimatorController);
+            NamesList.Add(_characterParametersList.CharactersListing[i].Name);
+            IconList.Add(_characterParametersList.CharactersListing[i].Icon);
+            LifeList.Add(_characterParametersList.CharactersListing[i].Life);
         }
     }
 
@@ -33,27 +37,33 @@ public class CharacterSwitch : MonoBehaviour
     {
         ControllersList.Clear();
         NamesList.Clear();
-        for (int i = 0; i < CharactersList.Count; i++)
+        IconList.Clear();
+        LifeList.Clear();
+        for (int i = 0; i < _characterParametersList.CharactersListing.Count; i++)
         {
-            ControllersList.Add((AnimatorController)CharactersList[i].Animator.runtimeAnimatorController);
-            NamesList.Add(CharactersList[i].Name);
+            ControllersList.Add((AnimatorController)_characterParametersList.CharactersListing[i].Animator.runtimeAnimatorController);
+            NamesList.Add(_characterParametersList.CharactersListing[i].Name);
+            IconList.Add(_characterParametersList.CharactersListing[i].Icon);
+            LifeList.Add(_characterParametersList.CharactersListing[i].Life);
         }
 
-        for (int i = 0; i < CharactersList.Count; i++)
+        for (int i = 0; i < _characterParametersList.CharactersListing.Count; i++)
         {
             int animatorNumber = SpriteChangeNumberGetter(i);
-            CharactersList[i].Animator.runtimeAnimatorController = ControllersList[animatorNumber];
-            CharactersList[i].AnimatorController = ControllersList[animatorNumber];
-            CharactersList[i].Name = NamesList[animatorNumber];
+            _characterParametersList.CharactersListing[i].Animator.runtimeAnimatorController = ControllersList[animatorNumber];
+            _characterParametersList.CharactersListing[i].AnimatorController = ControllersList[animatorNumber];
+            _characterParametersList.CharactersListing[i].Name = NamesList[animatorNumber];
+            _characterParametersList.CharactersListing[i].Icon = IconList[animatorNumber];
+            _characterParametersList.CharactersListing[i].Life = LifeList[animatorNumber];
 
-            _logger.Log($"Change {i+1}/{CharactersList.Count} : Changing sprite {i} to sprite {animatorNumber}", this);
+            _logger.Log($"Change {i+1}/{_characterParametersList.CharactersListing.Count} : Changing sprite {i} to sprite {animatorNumber}", this);
         }
     }
 
     private int SpriteChangeNumberGetter(int i)
     {
         int animatorNumber = i + 1;
-        if (i + 1 >= CharactersList.Count)
+        if (i + 1 >= _characterParametersList.CharactersListing.Count)
             animatorNumber = 0;
         return animatorNumber;
     }
