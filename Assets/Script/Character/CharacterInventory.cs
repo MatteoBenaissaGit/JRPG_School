@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 
 [Serializable]
-public class Item
+public class ItemCharacteristic
 {
     public enum Items
     {
@@ -14,10 +14,13 @@ public class Item
         shield = 3,
         health_potion = 4
     }
-    public Items item;
-    public int numberOfItem;
+    public Items Item;
+    public int NumberOfItem;
+    public Sprite Sprite;
 }
 public class CharacterInventory : MonoBehaviour
 {
-    public List<Item> ItemList;
+    [Header("Sprite List")]
+    public List<Sprite> Sprites;
+    public List<ItemCharacteristic> ItemList;
 }

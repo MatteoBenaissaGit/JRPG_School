@@ -6,6 +6,7 @@ public class MenuManager : MonoBehaviour
 {
     [SerializeField] private GameObject Menu;
     [SerializeField] private List<GameObject> Windows;
+    [SerializeField] private InventoryWindow _inventoryWindow;
 
     [SerializeField] private Logger _logger;
 

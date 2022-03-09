@@ -5,5 +5,67 @@ using UnityEngine;
 
 public class InventoryWindow : MonoBehaviour
 {
-    public List<GameObject> Slots;
+    [Header("Inventory Slot List")]
+    [HideInInspector] public List<GameObject> _slotsbackground;
+    [HideInInspector] public List<bool> _slotsfull;
+    public int NumberOfSlots;
+    [Header("Inventory Referencing")]
+    [SerializeField] private CharacterInventory _characterInventory;
+    [SerializeField] private GameObject _itemPrefab;
+    [SerializeField] private GameObject _slotBackgroundPrefab;
+    [Header("---Debug---")]
+    [SerializeField] private Logger _logger;
+
+    private void OnEnable()
+    {
+        CreateSlots();
+        UpdateInventory();
+    }
+
+    private void OnDisable()
+    {
+        _logger.Log("Cleaning inventory", this);
+        for (int i = 0; i < _slotsbackground.Count; i++)
+            GameObject.Destroy(_slotsbackground[i]); 
+        _slotsbackground.Clear();
+        _slotsfull.Clear();
+    }
+
+    private void CreateSlots()
+    {
+        for (int i = 0; i < NumberOfSlots; i++)
+        {
+            _slotsbackground.Add(Instantiate(_slotBackgroundPrefab, transform));
+            _slotsfull.Add(false);
+        }
+    }
+
+    public void UpdateInventory()
+    {
+        _logger.Log("Update Inventory", this);
+        for (int i = 0; i < _characterInventory.ItemList.Count; i++)
+        {
+            if (_characterInventory.ItemList[i].NumberOfItem > 0)
+            {
+                _logger.Log($"Showing {_characterInventory.ItemList[i].NumberOfItem} {_characterInventory.ItemList[i].Item} in Slot {CheckFirstEmptySlot()}", this);
+                GameObject itemprefab = Instantiate(_itemPrefab, _slotsbackground[CheckFirstEmptySlot()].transform);
+                itemprefab.GetComponent<ItemSlot>().Image.sprite = _characterInventory.ItemList[i].Sprite;
+                itemprefab.GetComponent<ItemSlot>().Number.text = _characterInventory.ItemList[i].NumberOfItem.ToString();
+                _slotsfull[CheckFirstEmptySlot()] = true;
+            }
+        }
+    }
+
+    private int CheckFirstEmptySlot()
+    {
+        for (int i = 0; i < _slotsfull.Count; i++)
+        {
+            if (!_slotsfull[i])
+            {
+                return i;
+                break;
+            }
+        }
+        return -1;
+    }
 }
