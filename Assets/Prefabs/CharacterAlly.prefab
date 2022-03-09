@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5535175895963101637}
   - component: {fileID: 5535175895963101638}
   - component: {fileID: 5535175895963101639}
-  - component: {fileID: 5535175895963101632}
+  - component: {fileID: -7945216868215254280}
   m_Layer: 0
   m_Name: CharacterAlly
   m_TagString: Untagged
@@ -110,7 +110,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.0133035, y: 9.549002}
   m_EdgeRadius: 0
---- !u!114 &5535175895963101632
+--- !u!114 &-7945216868215254280
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,4 +124,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaterialOutline: {fileID: 2100000, guid: 9c3c6b62293962b42bfd472dbe50ed99, type: 2}
   MaterialDefault: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  _playerManager: {fileID: 0}

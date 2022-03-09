@@ -8,9 +8,6 @@ public class CharacterUI : MonoBehaviour
     public Material MaterialOutline;
     public Material MaterialDefault;
 
-    public GameObject _playerManager;
-
-
     public void Outline()
     {
         GetComponent<SpriteRenderer>().material = MaterialOutline;

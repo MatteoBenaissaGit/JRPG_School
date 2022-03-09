@@ -751,42 +751,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ListChars:
-  - Name: 
+  - Object: {fileID: 1682758117}
+    Name: A
     HP: 0
     Damage: 0
-    CombatSprite: {fileID: 0}
-    CombatSpriteRenderer: {fileID: 0}
+    CombatSprite: {fileID: 21300000, guid: a2f4798ba93177d44bd37d98e0818f63, type: 3}
+    CombatSpriteRenderer: {fileID: 1682758120}
     IsCharaActive: 0
-    MaterialOutline: {fileID: 0}
-    MaterialDefault: {fileID: 0}
-    CharacterUI: {fileID: 0}
-  - Name: 
+  - Object: {fileID: 1511617391}
+    Name: B
     HP: 0
     Damage: 0
-    CombatSprite: {fileID: 0}
-    CombatSpriteRenderer: {fileID: 0}
+    CombatSprite: {fileID: 21300000, guid: a2f4798ba93177d44bd37d98e0818f63, type: 3}
+    CombatSpriteRenderer: {fileID: 1511617394}
     IsCharaActive: 0
-    MaterialOutline: {fileID: 0}
-    MaterialDefault: {fileID: 0}
-    CharacterUI: {fileID: 0}
-  - Name: 
+  - Object: {fileID: 969073823}
+    Name: C
     HP: 0
     Damage: 0
-    CombatSprite: {fileID: 0}
-    CombatSpriteRenderer: {fileID: 0}
+    CombatSprite: {fileID: 21300000, guid: a2f4798ba93177d44bd37d98e0818f63, type: 3}
+    CombatSpriteRenderer: {fileID: 969073826}
     IsCharaActive: 0
-    MaterialOutline: {fileID: 0}
-    MaterialDefault: {fileID: 0}
-    CharacterUI: {fileID: 0}
-  - Name: 
+  - Object: {fileID: 1290033267}
+    Name: D
     HP: 0
     Damage: 0
-    CombatSprite: {fileID: 0}
-    CombatSpriteRenderer: {fileID: 0}
+    CombatSprite: {fileID: 21300000, guid: a2f4798ba93177d44bd37d98e0818f63, type: 3}
+    CombatSpriteRenderer: {fileID: 1290033270}
     IsCharaActive: 0
-    MaterialOutline: {fileID: 0}
-    MaterialDefault: {fileID: 0}
-    CharacterUI: {fileID: 0}
   _logger: {fileID: 1599983925}
 --- !u!4 &930634252
 Transform:
@@ -864,6 +856,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3629a72681a07ad4181fa440a32b946c, type: 3}
+--- !u!1 &969073823 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5535175895963101636, guid: ace62a0ab41b0244da943f6c93e2e988, type: 3}
+  m_PrefabInstance: {fileID: 717937665}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &969073826 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 5535175895963101638, guid: ace62a0ab41b0244da943f6c93e2e988, type: 3}
+  m_PrefabInstance: {fileID: 717937665}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1120419080 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5535175895963101637, guid: ace62a0ab41b0244da943f6c93e2e988, type: 3}
@@ -1065,6 +1067,16 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1236828884}
   m_CullTransparentMesh: 1
+--- !u!1 &1290033267 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5535175895963101636, guid: ace62a0ab41b0244da943f6c93e2e988, type: 3}
+  m_PrefabInstance: {fileID: 276132417}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &1290033270 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 5535175895963101638, guid: ace62a0ab41b0244da943f6c93e2e988, type: 3}
+  m_PrefabInstance: {fileID: 276132417}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1294888479
 GameObject:
   m_ObjectHideFlags: 0
@@ -1367,6 +1379,16 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1431664352}
   m_CullTransparentMesh: 1
+--- !u!1 &1511617391 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5535175895963101636, guid: ace62a0ab41b0244da943f6c93e2e988, type: 3}
+  m_PrefabInstance: {fileID: 668718460}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &1511617394 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 5535175895963101638, guid: ace62a0ab41b0244da943f6c93e2e988, type: 3}
+  m_PrefabInstance: {fileID: 668718460}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1517160054
 GameObject:
   m_ObjectHideFlags: 0
@@ -1651,6 +1673,16 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1678266621}
   m_CullTransparentMesh: 1
+--- !u!1 &1682758117 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5535175895963101636, guid: ace62a0ab41b0244da943f6c93e2e988, type: 3}
+  m_PrefabInstance: {fileID: 1746917185}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &1682758120 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 5535175895963101638, guid: ace62a0ab41b0244da943f6c93e2e988, type: 3}
+  m_PrefabInstance: {fileID: 1746917185}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1746917185
 PrefabInstance:
   m_ObjectHideFlags: 0
