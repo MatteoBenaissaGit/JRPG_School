@@ -20,6 +20,7 @@ public class ItemPrefab : MonoBehaviour
     [SerializeField] private ItemList _itemnumber;
     [SerializeField] private GameObject _character;
     [SerializeField] private CharacterInventory _characterInventory;
+    [SerializeField] private InventoryWindow _inventoryWindow;
     [SerializeField] private GameObject _getSymbol;
     [SerializeField] private TextMeshPro _numberText;
     [Header("Variables")]
@@ -59,7 +60,13 @@ public class ItemPrefab : MonoBehaviour
 
     private void CollectItem()
     {
-        if (Input.GetKeyDown(KeyCode.E) && _canBeCollected)
+        int numberOfItemInInventory = 0;
+        for (int i = 0; i < _characterInventory.ItemList.Count; i++)
+        {
+            if (_characterInventory.ItemList[i].NumberOfItem > 0)
+                numberOfItemInInventory++;
+        }
+        if (Input.GetKeyDown(KeyCode.E) && _canBeCollected && numberOfItemInInventory < _inventoryWindow.NumberOfSlots)
         {
             _characterInventory.ItemList[(int)_itemnumber].NumberOfItem += _quantity;
             Destroy(gameObject);
