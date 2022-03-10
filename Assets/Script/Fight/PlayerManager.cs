@@ -5,6 +5,16 @@ using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
+
+    enum SelectionMode
+    {
+        Default,
+        Attack,
+        Buff
+    }
+
+    SelectionMode _currentMode;
+
     private CharacterUI _selectedUI;
 
     public List<CharacterCombatAttributes> ListChars;
@@ -33,7 +43,7 @@ public class PlayerManager : MonoBehaviour
                 {
                     for (int i = 0; i < ListChars.Count; i++)
                     {
-                        ListChars[i].Object.GetComponent<CharacterUI>().UnOutline();
+                        ListChars[i].CharacterObject.GetComponent<CharacterUI>().UnOutline();
                     }
                     characterPicked.Outline();
                 }

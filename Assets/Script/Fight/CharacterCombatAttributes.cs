@@ -4,7 +4,7 @@ using UnityEngine;
 [Serializable]
 public class CharacterCombatAttributes
 {
-    public GameObject Object;
+    public GameObject CharacterObject;
     public string Name;
     public int HP;
     public int Damage;
