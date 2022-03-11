@@ -13,6 +13,8 @@ public class InventoryWindow : MonoBehaviour
     [SerializeField] private CharacterInventory _characterInventory;
     [SerializeField] private GameObject _itemPrefab;
     [SerializeField] private GameObject _slotBackgroundPrefab;
+    [Header("Referencing")]
+    [SerializeField] private MenuRightClic _menuRightClick;
     [Header("---Debug---")]
     [SerializeField] private Logger _logger;
 
@@ -20,6 +22,20 @@ public class InventoryWindow : MonoBehaviour
     {
         CreateSlots();
         UpdateInventory();
+    }
+
+    private void Update()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+
+        if (hit.collider != null)
+        {
+            if (Input.GetMouseButtonDown(1))
+            {
+                ShowRightClick(0, true);
+                _logger.Log($"clicked on {hit.collider.name}", this);
+            }
+        }
     }
 
     private void OnDisable()
@@ -67,5 +83,11 @@ public class InventoryWindow : MonoBehaviour
             }
         }
         return -1;
+    }
+
+    public void ShowRightClick(int itemNumber, bool isNotUsable)
+    {
+        _menuRightClick.UpdateRightClickInfos(itemNumber, isNotUsable);
+        _menuRightClick.gameObject.SetActive(true);
     }
 }
