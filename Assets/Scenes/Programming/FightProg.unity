@@ -751,34 +751,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ListChars:
-  - Object: {fileID: 1682758117}
+  - CharacterObject: {fileID: 1682758117}
     Name: A
     HP: 0
     Damage: 0
     CombatSprite: {fileID: 21300000, guid: a2f4798ba93177d44bd37d98e0818f63, type: 3}
     CombatSpriteRenderer: {fileID: 1682758120}
-    IsCharaActive: 0
-  - Object: {fileID: 1511617391}
+  - CharacterObject: {fileID: 1511617391}
     Name: B
     HP: 0
     Damage: 0
     CombatSprite: {fileID: 21300000, guid: a2f4798ba93177d44bd37d98e0818f63, type: 3}
     CombatSpriteRenderer: {fileID: 1511617394}
-    IsCharaActive: 0
-  - Object: {fileID: 969073823}
+  - CharacterObject: {fileID: 969073823}
     Name: C
     HP: 0
     Damage: 0
     CombatSprite: {fileID: 21300000, guid: a2f4798ba93177d44bd37d98e0818f63, type: 3}
     CombatSpriteRenderer: {fileID: 969073826}
-    IsCharaActive: 0
-  - Object: {fileID: 1290033267}
+  - CharacterObject: {fileID: 1290033267}
     Name: D
     HP: 0
     Damage: 0
     CombatSprite: {fileID: 21300000, guid: a2f4798ba93177d44bd37d98e0818f63, type: 3}
     CombatSpriteRenderer: {fileID: 1290033270}
-    IsCharaActive: 0
   _logger: {fileID: 1599983925}
 --- !u!4 &930634252
 Transform:

@@ -8,16 +8,16 @@ public class PlayerManager : MonoBehaviour
 
     enum SelectionMode
     {
-        Default,
+        DefaultPick,
         Attack,
         Buff
     }
 
     SelectionMode _currentMode;
 
-    private CharacterUI _selectedUI;
-
     public List<CharacterCombatAttributes> ListChars;
+
+    int _selectedCharacter;
 
     [Header("---Debug---")]
     [SerializeField] private Logger _logger;
@@ -26,7 +26,9 @@ public class PlayerManager : MonoBehaviour
     {
         //Character = ListChars[_selectedPlayerIndex];
        // _logger.Log($"HP of {this.name} : {Character.HP}", this);
+
         UpdateCharSprite();
+        _currentMode = SelectionMode.DefaultPick;
     }
     public void Update()
     {
@@ -41,14 +43,56 @@ public class PlayerManager : MonoBehaviour
 
                 if (characterPicked != null)
                 {
-                    for (int i = 0; i < ListChars.Count; i++)
+                    if (_currentMode == SelectionMode.DefaultPick)
                     {
-                        ListChars[i].CharacterObject.GetComponent<CharacterUI>().UnOutline();
+                        for (int i = 0; i < ListChars.Count; i++)
+                        {
+                            ListChars[i].CharacterObject.GetComponent<CharacterUI>().UnOutline();
+                        }
+
+                        characterPicked.Outline();
+                        _currentMode = SelectionMode.Attack;
+
+                        for (int i = 0; i < ListChars.Count; i++)
+                        {
+                            if (ListChars[i].CharacterObject.GetComponent<CharacterUI>().IsActive == true)
+                            {
+                                _selectedCharacter = i;
+                            }
+                        }
+
+                        Debug.Log(_selectedCharacter);
                     }
-                    characterPicked.Outline();
+
+                    if (_currentMode == SelectionMode.Attack)
+                    {
+                        // Selectionner un joueur allié = impossible, prog le message
+                    }
+
+                    if (_currentMode == SelectionMode.Buff)
+                    {
+                        for (int i = 0; i < ListChars.Count; i++)
+                        {
+                            ListChars[i].CharacterObject.GetComponent<CharacterUI>().UnOutline();
+                        }
+                        characterPicked.Outline();
+                        _currentMode = SelectionMode.Attack;
+                    }
                 }
 
             }
+        }
+
+        if (Input.GetMouseButton(1))
+        {
+            _selectedCharacter = -1; //Unselects character
+
+            for (int i = 0; i < ListChars.Count; i++)
+            {
+                ListChars[i].CharacterObject.GetComponent<CharacterUI>().UnOutline();
+            }
+
+            _currentMode = SelectionMode.DefaultPick;
         }
     }
     void UpdateCharSprite()

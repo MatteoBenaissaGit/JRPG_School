@@ -10,6 +10,5 @@ public class CharacterCombatAttributes
     public int Damage;
     public Sprite CombatSprite;
     public SpriteRenderer CombatSpriteRenderer;
-    public bool IsCharaActive;
 }
 
