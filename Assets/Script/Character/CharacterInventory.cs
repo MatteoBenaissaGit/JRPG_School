@@ -16,11 +16,12 @@ public class ItemCharacteristic
     }
     public Items Item;
     public int NumberOfItem;
-    public Sprite Sprite;
+    public Sprite InventorySprite;
+    public Sprite InGameSprite;
+    public bool IsUsable;
 }
 public class CharacterInventory : MonoBehaviour
 {
     [Header("Sprite List")]
-    public List<Sprite> Sprites;
     public List<ItemCharacteristic> ItemList;
 }

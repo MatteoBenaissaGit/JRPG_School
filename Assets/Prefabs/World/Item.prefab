@@ -99,12 +99,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _materialOutline: {fileID: 2100000, guid: dc579d1917d9f2a4fa53f6eea2e1ecb2, type: 2}
   _materialDefault: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
-  _itemnumber: 4
-  _character: {fileID: 0}
-  _characterInventory: {fileID: 0}
+  ItemNumber: 0
+  Character: {fileID: 0}
+  CharacterParent: {fileID: 0}
+  CharacterInventory: {fileID: 0}
+  InventoryWindow: {fileID: 0}
   _getSymbol: {fileID: 483956966402575911}
   _numberText: {fileID: 483956966092826212}
-  _quantity: 5
+  DialogBox: {fileID: 0}
+  Quantity: 0
 --- !u!208 &483956964509685637
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -482,7 +485,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &50278516982164497
 MonoBehaviour:

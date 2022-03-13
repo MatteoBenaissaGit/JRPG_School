@@ -12,25 +12,9 @@ public class MenuRightClic : MonoBehaviour
     [Header("---Debug---")]
     [SerializeField] private Logger _logger;
 
-    private bool _canThrow;
-    private bool _canUse;
-
     void Start()
     {
         gameObject.SetActive(false);
-    }
-
-    private void OnEnable()
-    {
-        _logger.Log("RightClick", this);
-        transform.position = Vector3.Scale(Camera.main.ScreenToWorldPoint((Vector2)Input.mousePosition), new Vector3(1,1,0));
-        if (!_canThrow)
-        {
-            _throwOne.interactable = false;
-            _throwAll.interactable = false;
-        }
-        if (!_canUse)
-            _use.interactable = false;
     }
 
     private void OnDisable()
@@ -45,11 +29,18 @@ public class MenuRightClic : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void UpdateRightClickInfos(int numberOfItem, bool IsNotUsable)
+    public void UpdateRightClickInfos(int numberOfItem, bool IsUsable)
     {
+        _logger.Log($"RightClickMenu Enabled", this);
+        _logger.Log($"{numberOfItem} of this item that are usable : {IsUsable}", this);
+        transform.position = Vector3.Scale(Camera.main.ScreenToWorldPoint((Vector2)Input.mousePosition), new Vector3(1,1,0));      
         if (numberOfItem <= 0)
-            _canThrow = false;
-        if (IsNotUsable)
-            _canUse = false;
+        {
+            _throwOne.interactable = false;
+            _throwAll.interactable = false;
+        }
+        if (!IsUsable)
+            _use.interactable = false;
+        gameObject.SetActive(true);
     }
 }

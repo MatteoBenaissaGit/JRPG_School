@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ItemPrefab : MonoBehaviour
 {
-    private enum ItemList //keep the same as ItemList in CharacterInventory
+    public enum ItemList //keep the same as ItemList in CharacterInventory
     {
         sword = 0,
         key = 1,
@@ -17,16 +17,16 @@ public class ItemPrefab : MonoBehaviour
     [SerializeField] private Material _materialOutline;
     [SerializeField] private Material _materialDefault;
     [Header("Referencing")]
-    [SerializeField] private ItemList _itemNumber;
-    [SerializeField] private GameObject _character;
-    [SerializeField] private GameObject _characterParent;
-    [SerializeField] private CharacterInventory _characterInventory;
-    [SerializeField] private InventoryWindow _inventoryWindow;
+    public ItemList ItemNumber;
+    public GameObject Character;
+    public GameObject CharacterParent;
+    public CharacterInventory CharacterInventory;
+    public InventoryWindow InventoryWindow;
     [SerializeField] private GameObject _getSymbol;
     [SerializeField] private TextMeshPro _numberText;
-    [SerializeField] private DialogBox _dialogBox;
+    public DialogBox DialogBox;
     [Header("Variables")]
-    [SerializeField] private int _quantity;
+    public int Quantity;
 
 
     private float _distanceToCollect = 2;
@@ -34,7 +34,7 @@ public class ItemPrefab : MonoBehaviour
 
     private void Start()
     {
-        _numberText.text = _quantity.ToString();
+        _numberText.text = Quantity.ToString();
         _getSymbol.SetActive(false);
     }
     private void Update()
@@ -44,7 +44,7 @@ public class ItemPrefab : MonoBehaviour
 
     private void DistanceCheck()
     {
-        float dist = Vector3.Distance(_character.transform.position, transform.position);
+        float dist = Vector2.Distance(Character.transform.position, transform.position);
         if (dist < _distanceToCollect)
         {
             Outline();
@@ -64,22 +64,22 @@ public class ItemPrefab : MonoBehaviour
     private void CollectItem()
     {
         int numberOfItemInInventory = 0;
-        for (int i = 0; i < _characterInventory.ItemList.Count; i++)
+        for (int i = 0; i < CharacterInventory.ItemList.Count; i++)
         {
-            if (i != (int)_itemNumber && _characterInventory.ItemList[i].NumberOfItem > 0)
+            if (i != (int)ItemNumber && CharacterInventory.ItemList[i].NumberOfItem > 0)
                 numberOfItemInInventory++;
         }
 
-        if (_canBeCollected && numberOfItemInInventory < _inventoryWindow.NumberOfSlots)
+        if (_canBeCollected && numberOfItemInInventory < InventoryWindow.NumberOfSlots)
         {
-            _characterInventory.ItemList[(int)_itemNumber].NumberOfItem += _quantity;
+            CharacterInventory.ItemList[(int)ItemNumber].NumberOfItem += Quantity;
             Destroy(gameObject);
         }
         else
         {
             string text = "Mon sac est plein ! Je ne peux plus rien porter.";
-            _dialogBox.EnableDialogBox(true, _characterParent.GetComponent<CharactersParametersList>().CharactersListing[0].Name, 
-            text, _characterParent.GetComponent<CharactersParametersList>().CharactersListing[0].Icon);
+            DialogBox.EnableDialogBox(true, CharacterParent.GetComponent<CharactersParametersList>().CharactersListing[0].Name, 
+            text, CharacterParent.GetComponent<CharactersParametersList>().CharactersListing[0].Icon);
         }
     }
 

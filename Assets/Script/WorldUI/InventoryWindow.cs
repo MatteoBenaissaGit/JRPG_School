@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 
 public class InventoryWindow : MonoBehaviour
@@ -9,12 +10,24 @@ public class InventoryWindow : MonoBehaviour
     [HideInInspector] public List<GameObject> _slotsbackground;
     [HideInInspector] public List<bool> _slotsfull;
     public int NumberOfSlots;
+    public List<ItemSlot> ItemInSlotList;
     [Header("Inventory Referencing")]
     [SerializeField] private CharacterInventory _characterInventory;
+    [SerializeField] private GameObject _inventoryItemPrefab;
     [SerializeField] private GameObject _itemPrefab;
     [SerializeField] private GameObject _slotBackgroundPrefab;
-    [Header("Referencing")]
+    [Header("RightClick Referencing")]
     [SerializeField] private MenuRightClic _menuRightClick;
+    [Header("ItemDrop Referencing")]
+    [SerializeField] private GameObject _itemParent;
+    [SerializeField] private GameObject _character;
+    [SerializeField] private GameObject _characterParent;
+    [SerializeField] private DialogBox _dialogBox;
+    [SerializeField] [Range(0.1f,2f)] private float _distanceDrop;
+
+    private int _itemRightClicked;
+
+
     [Header("---Debug---")]
     [SerializeField] private Logger _logger;
 
@@ -26,23 +39,19 @@ public class InventoryWindow : MonoBehaviour
 
     private void Update()
     {
-        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-
-        if (hit.collider != null)
-        {
-            if (Input.GetMouseButtonDown(1))
-            {
-                ShowRightClick(0, true);
-                _logger.Log($"clicked on {hit.collider.name}", this);
-            }
-        }
+        RightClickCheck();
     }
 
     private void OnDisable()
     {
+        ClearInventory();
+    }
+
+    private void ClearInventory()
+    {
         _logger.Log("Cleaning inventory", this);
         for (int i = 0; i < _slotsbackground.Count; i++)
-            GameObject.Destroy(_slotsbackground[i]); 
+            GameObject.Destroy(_slotsbackground[i]);
         _slotsbackground.Clear();
         _slotsfull.Clear();
     }
@@ -64,9 +73,12 @@ public class InventoryWindow : MonoBehaviour
             if (_characterInventory.ItemList[i].NumberOfItem > 0)
             {
                 _logger.Log($"Showing {_characterInventory.ItemList[i].NumberOfItem} {_characterInventory.ItemList[i].Item} in Slot {CheckFirstEmptySlot()}", this);
-                GameObject itemprefab = Instantiate(_itemPrefab, _slotsbackground[CheckFirstEmptySlot()].transform);
-                itemprefab.GetComponent<ItemSlot>().Image.sprite = _characterInventory.ItemList[i].Sprite;
+                GameObject itemprefab = Instantiate(_inventoryItemPrefab, _slotsbackground[CheckFirstEmptySlot()].transform);
+                itemprefab.GetComponent<ItemSlot>().Image.sprite = _characterInventory.ItemList[i].InventorySprite;
                 itemprefab.GetComponent<ItemSlot>().Number.text = _characterInventory.ItemList[i].NumberOfItem.ToString();
+                itemprefab.GetComponent<ItemSlot>().IsUsable= _characterInventory.ItemList[i].IsUsable;
+                itemprefab.GetComponent<ItemSlot>().Item = (ItemSlot.Items)i;
+                ItemInSlotList.Add(itemprefab.GetComponent<ItemSlot>());
                 _slotsfull[CheckFirstEmptySlot()] = true;
             }
         }
@@ -77,17 +89,62 @@ public class InventoryWindow : MonoBehaviour
         for (int i = 0; i < _slotsfull.Count; i++)
         {
             if (!_slotsfull[i])
-            {
                 return i;
-                break;
-            }
         }
         return -1;
+    }
+
+    private void RightClickCheck()
+    {
+        for (int i = 0; i < ItemInSlotList.Count; i++)
+        {
+            if (ItemInSlotList[i].IsRightClicked && (Input.GetMouseButtonDown(1)))
+            {
+                _itemRightClicked = (int)ItemInSlotList[i].Item;
+                _logger.Log($"RightClick on {ItemInSlotList[i].Item} (item nb : {(int)ItemInSlotList[i].Item})", this);
+                ShowRightClick(int.Parse(ItemInSlotList[i].Number.text), ItemInSlotList[i].IsUsable);
+            }
+        }
     }
 
     public void ShowRightClick(int itemNumber, bool isNotUsable)
     {
         _menuRightClick.UpdateRightClickInfos(itemNumber, isNotUsable);
         _menuRightClick.gameObject.SetActive(true);
+    }
+
+
+    private void DropItem(int numberOfItemDropped, int itemNumber)
+    {
+        GameObject itemdropped = Instantiate(_itemPrefab, _itemParent.transform);
+        Vector3 size = itemdropped.transform.localScale;
+        itemdropped.transform.position = _character.transform.position;
+        itemdropped.transform.localScale = Vector3.zero;
+        itemdropped.GetComponent<ItemPrefab>().ItemNumber = (ItemPrefab.ItemList)itemNumber;
+        itemdropped.GetComponent<ItemPrefab>().Character = _character;
+        itemdropped.GetComponent<ItemPrefab>().CharacterParent = _characterParent;
+        itemdropped.GetComponent<ItemPrefab>().CharacterInventory = _characterParent.GetComponent<CharacterInventory>();
+        itemdropped.GetComponent<ItemPrefab>().InventoryWindow = gameObject.GetComponent<InventoryWindow>();
+        itemdropped.GetComponent<ItemPrefab>().DialogBox = _dialogBox;
+        itemdropped.GetComponent<ItemPrefab>().Quantity = numberOfItemDropped;
+        itemdropped.GetComponent<SpriteRenderer>().sprite = _characterInventory.ItemList[itemNumber].InGameSprite;
+
+        float distanceDrop = Random.Range(0, _distanceDrop);
+        itemdropped.transform.DOMove(Vector3.Scale(transform.position, new Vector3(distanceDrop, distanceDrop, distanceDrop)), 1);
+        itemdropped.transform.DOScale(size, 1);
+        _logger.Log($"item {itemNumber} : {numberOfItemDropped} dropped", this);
+
+        _characterInventory.ItemList[itemNumber].NumberOfItem -= numberOfItemDropped;
+        ClearInventory();
+        CreateSlots();
+        UpdateInventory();
+    }
+    public void ButtonThrowOne()
+    {
+        DropItem(1, _itemRightClicked);
+    }
+    public void ButtonThrowAll()
+    {
+        DropItem(_characterInventory.ItemList[_itemRightClicked].NumberOfItem, _itemRightClicked);
     }
 }
