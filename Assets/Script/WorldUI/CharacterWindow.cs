@@ -8,6 +8,7 @@ public class CharacterWindow : MonoBehaviour
     [SerializeField] private GameObject _characterTagWindow;
     [SerializeField] private CharactersParametersList _characterParentParametersList;
     [SerializeField] private CharacterSwitch _character;
+    [SerializeField] private CW_CommonInfos _cwCommonInfos;
 
     [HideInInspector] public List<GameObject> CharacterTagWindowList;
 
@@ -19,7 +20,10 @@ public class CharacterWindow : MonoBehaviour
     private void Update()
     {
         if (enabled)
+        {
             ChangeLeader();
+            CheckClickInfo();
+        }
     }
 
     private void AddCharactersTagWindow()
@@ -49,9 +53,22 @@ public class CharacterWindow : MonoBehaviour
                 for (int O = 0; O < i; O++)
                 {
                     _character.SwitchToNextCharacter();
+                    _cwCommonInfos.SwitchToNextCharacter();
                 }
                 CharacterTagWindowList[i].GetComponent<CharacterTagWindow>().IsLeader = false;
                 AddCharactersTagWindow();
+            }
+        }
+    }
+
+    public void CheckClickInfo()
+    {
+        for (int i = 0; i < CharacterTagWindowList.Count; i++)
+        {
+            if (CharacterTagWindowList[i].GetComponent<CharacterTagWindow>().IsClicked)
+            {
+                _cwCommonInfos.ShowCharacter(i);
+                CharacterTagWindowList[i].GetComponent<CharacterTagWindow>().IsClicked = false;
             }
         }
     }

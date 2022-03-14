@@ -32,13 +32,13 @@ public class CharacterVisualEffectManager : MonoBehaviour
             EffetLauncher(_clickEffetPrefab, Vector3.Scale(Camera.main.ScreenToWorldPoint(Input.mousePosition), new Vector3(1, 1, 0)));
     }
 
-    private static int CompareDinosCharacterByTransformY(GameObject x, GameObject y)
+    private static int CompareCharacterByTransformY(GameObject x, GameObject y)
     {
         return (x.transform.position.y > y.transform.position.y) ? -1 : 1;
     }
     private void DepthManagement()
     {
-        _charactersList.Sort(CompareDinosCharacterByTransformY);
+        _charactersList.Sort(CompareCharacterByTransformY);
         for (int i = 0; i < _charactersList.Count; i++)
             _charactersList[i].GetComponent<SpriteRenderer>().sortingOrder = _charactersOrderInLayer + i;
     }

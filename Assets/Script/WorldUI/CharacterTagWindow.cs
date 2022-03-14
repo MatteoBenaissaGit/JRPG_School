@@ -13,10 +13,15 @@ public class CharacterTagWindow : MonoBehaviour
 
     [HideInInspector] public CharacterWindow CharacterWindow;
     [HideInInspector] public bool IsLeader;
+    [HideInInspector] public bool IsClicked;
 
-    public void MakeLeaderButton()
+    [Header("Materials")]
+    [SerializeField] private Material _materialOutline;
+    [SerializeField] private Material _materialDefault;
+
+    private void OnMouseDown()
     {
-        IsLeader = true;
+        IsClicked = true;
     }
     private void OnEnable()
     {
@@ -30,4 +35,17 @@ public class CharacterTagWindow : MonoBehaviour
     {
         _makeLeaderButton.SetActive(false);  
     }
+    public void MakeLeaderButton()
+    {
+        IsLeader = true;
+    }
+    private void Outline()
+    {
+        GetComponent<SpriteRenderer>().material = _materialOutline;
+    }
+    private void UnOutline()
+    {
+        GetComponent<SpriteRenderer>().material = _materialDefault;
+    }
+
 }
