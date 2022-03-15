@@ -17,7 +17,8 @@ public class PlayerManager : MonoBehaviour
 
     public List<CharacterCombatAttributes> ListChars;
 
-    int _selectedCharacter;
+    public int SelectedCharacter = -1;
+    int _selectedButtons;
 
     [Header("---Debug---")]
     [SerializeField] private Logger _logger;
@@ -57,11 +58,9 @@ public class PlayerManager : MonoBehaviour
                         {
                             if (ListChars[i].CharacterObject.GetComponent<CharacterUI>().IsActive == true)
                             {
-                                _selectedCharacter = i;
+                                SelectedCharacter = i;
                             }
                         }
-
-                        Debug.Log(_selectedCharacter);
                     }
 
                     if (_currentMode == SelectionMode.Attack)
@@ -85,7 +84,7 @@ public class PlayerManager : MonoBehaviour
 
         if (Input.GetMouseButton(1))
         {
-            _selectedCharacter = -1; //Unselects character
+            SelectedCharacter = -1; //Unselects character
 
             for (int i = 0; i < ListChars.Count; i++)
             {
