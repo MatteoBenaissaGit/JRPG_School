@@ -51,7 +51,7 @@ public class PlayerManager : MonoBehaviour
                         }
 
                         characterPicked.Outline();
-                        _currentMode = SelectionMode.Attack;
+                        //_currentMode = SelectionMode.Attack;
 
                         for (int i = 0; i < ListChars.Count; i++)
                         {
