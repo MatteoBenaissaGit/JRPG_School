@@ -16,7 +16,9 @@ public class PlayerManager : MonoBehaviour
     SelectionMode _currentMode;
 
     public List<CharacterCombatAttributes> ListChars;
-    
+
+    public GameObject AbilitiesManagerObj;
+    public GameObject ButtonManagerObj;
 
     public int SelectedCharacter = -1;
     int _selectedButtons;
@@ -53,7 +55,6 @@ public class PlayerManager : MonoBehaviour
                         }
 
                         characterPicked.Outline();
-                        //_currentMode = SelectionMode.Attack;
 
                         for (int i = 0; i < ListChars.Count; i++)
                         {
@@ -62,6 +63,10 @@ public class PlayerManager : MonoBehaviour
                                 SelectedCharacter = i;
                             }
                         }
+                        //_currentMode = SelectionMode.Attack;
+
+                        AbilitiesManagerObj.GetComponent<AbilitiesManager>().NewActiveSprites();
+                        ButtonManagerObj.GetComponent<ButtonManager>().UpdateSprites();
                     }
 
                     if (_currentMode == SelectionMode.Attack)
@@ -76,7 +81,6 @@ public class PlayerManager : MonoBehaviour
                             ListChars[i].CharacterObject.GetComponent<CharacterUI>().UnOutline();
                         }
                         characterPicked.Outline();
-                        _currentMode = SelectionMode.Attack;
                     }
                 }
 

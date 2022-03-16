@@ -663,6 +663,8 @@ MonoBehaviour:
     CanTargetHimself: 0
     CanStun: 0
     ButtonSprite: {fileID: 21300000, guid: 7060b908fdc48b44aa41b45a6219e678, type: 3}
+  PlayerManagerObj: {fileID: 930634249}
+  UpdatedButtonSprites: []
 --- !u!4 &776727747
 Transform:
   m_ObjectHideFlags: 0
@@ -731,15 +733,9 @@ MonoBehaviour:
     Damage: 0
     CombatSprite: {fileID: 21300000, guid: a2f4798ba93177d44bd37d98e0818f63, type: 3}
     CombatSpriteRenderer: {fileID: 1290033270}
+  AbilitiesManagerObj: {fileID: 776727745}
+  ButtonManagerObj: {fileID: 1017858233}
   SelectedCharacter: 0
-  CurrentAbilityName: 
-  CurrentAbilityHealthChange: 0
-  CurrentAbilityEgoChange: 0
-  CurrentAbilityPowerChange: 0
-  CurrentAbilityEloquenceChange: 0
-  CurrentAbilityCanTargetAlly: 0
-  CurrentAbilityCanTargetHimself: 0
-  CurrentAbilityCanStun: 0
   _logger: {fileID: 1599983925}
 --- !u!4 &930634252
 Transform:
@@ -856,7 +852,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80737dd2985938145a3eba10b3c1e669, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerManagerObj: {fileID: 930634249}
+  AbilitiesButtons:
+  - {fileID: 2082352857}
+  - {fileID: 1431664354}
+  - {fileID: 1236828886}
   AbilitiesObj: {fileID: 776727745}
 --- !u!4 &1017858235
 Transform:
