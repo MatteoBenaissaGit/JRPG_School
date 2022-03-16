@@ -16,6 +16,7 @@ public class PlayerManager : MonoBehaviour
     SelectionMode _currentMode;
 
     public List<CharacterCombatAttributes> ListChars;
+    
 
     public int SelectedCharacter = -1;
     int _selectedButtons;

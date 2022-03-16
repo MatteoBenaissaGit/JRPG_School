@@ -19,7 +19,9 @@ public class ButtonManager : MonoBehaviour
             if ((AbilitiesObj.GetComponent<AbilitiesManager>().AbilitiesList[i].WhichButton == _buttonCurrent) &&
                 (AbilitiesObj.GetComponent<AbilitiesManager>().AbilitiesList[i].WhichPlayer == PlayerManagerObj.GetComponent<PlayerManager>().SelectedCharacter))
             {
+                //List<Int32> copy = new List<Int32>(original);
 
+                List<Abilities> CurrentAbility = new List<Abilities>();
             }
         }
     }

@@ -6,6 +6,4 @@ public class AbilitiesManager : MonoBehaviour
 {
     public List<Abilities> AbilitiesList;
 
-    [HideInInspector] public List<CurrentAbilities> CurrentAbilitiesList;
-
 }
