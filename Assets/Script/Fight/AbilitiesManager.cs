@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class AbilitiesManager : MonoBehaviour
 {
-    public List<Abilities> AbilitiesList;
     public GameObject PlayerManagerObj;
+    public GameObject ButtonManagerObj;
 
+    public List<Abilities> AbilitiesList;
     [HideInInspector] public List<Sprite> UpdatedButtonSprites;
-    [HideInInspector] public List<int> UpdatedStats;
-    //[HideInInspector] public bool UpdatedCanTargetAlly;
-    //[HideInInspector] public bool UpdatedCanTargetHimself;
-    //[HideInInspector] public bool UpdatedCanStun;
+    [HideInInspector] public List<bool> UpdatedCan;
+
+    [HideInInspector] public int UpdatedHP;
+    [HideInInspector] public int UpdatedEgo;
+    [HideInInspector] public int UpdatedPower;
+    [HideInInspector] public int UpdatedEloquence;
+    
+
 
     public void NewActiveSprites()
     {
@@ -28,26 +33,22 @@ public class AbilitiesManager : MonoBehaviour
 
     public void NewActiveStats()
     {
-        UpdatedStats.Clear();
-
-        for (int i = 0; i < UpdatedStats.Count; i++)
+        for (int i = 0; i < AbilitiesList.Count; i++)
         {
-            if (AbilitiesList[i].WhichPlayer == PlayerManagerObj.GetComponent<PlayerManager>().SelectedCharacter)
+            if ((AbilitiesList[i].WhichPlayer == PlayerManagerObj.GetComponent<PlayerManager>().SelectedCharacter) && 
+                 AbilitiesList[i].WhichButton == ButtonManagerObj.GetComponent<ButtonManager>().ButtonCurrent)
             {
-                UpdatedStats.Add(AbilitiesList[i].HealthChange);
+                UpdatedHP = AbilitiesList[i].HealthChange;
+                UpdatedEgo = AbilitiesList[i].EgoChange;
+                UpdatedPower = AbilitiesList[i].PowerChange;
+                UpdatedEloquence = AbilitiesList[i].EloquenceChange;
+
+                UpdatedCan.Add(AbilitiesList[i].CanTargetAlly);
+                UpdatedCan.Add(AbilitiesList[i].CanTargetHimself);
+                UpdatedCan.Add(AbilitiesList[i].CanStun);
+
+                //Debug.Log(UpdatedHP);
             }
         }
     }
-
-    //public void ClickFunction()
-    //{
-    //    for (int i = 0; i < AbilitiesObj.GetComponent<AbilitiesManager>().AbilitiesList.Count; i++)
-    //    {
-    //        if ((AbilitiesObj.GetComponent<AbilitiesManager>().AbilitiesList[i].WhichButton == _buttonCurrent) &&
-    //            (AbilitiesObj.GetComponent<AbilitiesManager>().AbilitiesList[i].WhichPlayer == PlayerManagerObj.GetComponent<PlayerManager>().SelectedCharacter))
-    //        {
-
-    //        }
-    //    }
-    //}
 }

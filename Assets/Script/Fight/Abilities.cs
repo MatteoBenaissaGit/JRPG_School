@@ -16,18 +16,3 @@ public class Abilities
     public bool CanStun;
     public Sprite ButtonSprite;
 }
-
-public class CurrentAbilities
-{
-    public string CurrentAbilityName;
-    public int CurrentWhichPlayer;
-    public int CurrentWhichButton;
-    public int CurrentHealthChange;
-    public int CurrentEgoChange;
-    public int CurrentPowerChange;
-    public int CurrentEloquenceChange;
-    public bool CurrentCanTargetAlly;
-    public bool CurrentCanTargetHimself;
-    public bool CurrentCanStun;
-    public Sprite ButtonSprite;
-}

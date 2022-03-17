@@ -10,7 +10,7 @@ public class ButtonManager : MonoBehaviour
  
     public GameObject AbilitiesObj;
 
-    int _buttonCurrent;
+    public int ButtonCurrent;
 
 
     public void ClickFunction()
@@ -28,19 +28,19 @@ public class ButtonManager : MonoBehaviour
 
     public void OnClick0()
     {
-        _buttonCurrent = 0;
+        ButtonCurrent = 0;
         ClickFunction();
     }
 
     public void OnClick1()
     {
-        _buttonCurrent = 1;
+        ButtonCurrent = 1;
         ClickFunction();
     }
 
     public void OnClick2()
     {
-        _buttonCurrent = 2;
+        ButtonCurrent = 2;
         ClickFunction();
     }
 }

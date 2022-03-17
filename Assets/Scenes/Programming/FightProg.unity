@@ -629,6 +629,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef59866329c269b4fb5f0d1414b8242f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerManagerObj: {fileID: 930634249}
+  ButtonManagerObj: {fileID: 1017858233}
   AbilitiesList:
   - AbilityName: Attack
     WhichPlayer: 0
@@ -663,8 +665,45 @@ MonoBehaviour:
     CanTargetHimself: 0
     CanStun: 0
     ButtonSprite: {fileID: 21300000, guid: 7060b908fdc48b44aa41b45a6219e678, type: 3}
-  PlayerManagerObj: {fileID: 930634249}
+  - AbilityName: Test 1
+    WhichPlayer: 1
+    WhichButton: 0
+    HealthChange: 25
+    EgoChange: 0
+    PowerChange: 0
+    EloquenceChange: 0
+    CanTargetAlly: 1
+    CanTargetHimself: 0
+    CanStun: 0
+    ButtonSprite: {fileID: 21300000, guid: 4953857ad0d06164ab37d262e9e68292, type: 3}
+  - AbilityName: Test 2
+    WhichPlayer: 1
+    WhichButton: 1
+    HealthChange: 25
+    EgoChange: 0
+    PowerChange: 0
+    EloquenceChange: 0
+    CanTargetAlly: 1
+    CanTargetHimself: 0
+    CanStun: 0
+    ButtonSprite: {fileID: 21300000, guid: 5dba4c033cb4e7543bd7a3e828da2107, type: 3}
+  - AbilityName: Test 3
+    WhichPlayer: 1
+    WhichButton: 2
+    HealthChange: 25
+    EgoChange: 0
+    PowerChange: 0
+    EloquenceChange: 0
+    CanTargetAlly: 1
+    CanTargetHimself: 0
+    CanStun: 0
+    ButtonSprite: {fileID: 21300000, guid: 3b8300885976c8144a93403676750067, type: 3}
   UpdatedButtonSprites: []
+  UpdatedCan: 
+  UpdatedHP: 0
+  UpdatedEgo: 0
+  UpdatedPower: 0
+  UpdatedEloquence: 0
 --- !u!4 &776727747
 Transform:
   m_ObjectHideFlags: 0
@@ -712,25 +751,33 @@ MonoBehaviour:
   - CharacterObject: {fileID: 1682758117}
     Name: A
     HP: 0
-    Damage: 0
+    Ego: 0
+    Power: 0
+    Eloquence: 0
     CombatSprite: {fileID: 21300000, guid: a2f4798ba93177d44bd37d98e0818f63, type: 3}
     CombatSpriteRenderer: {fileID: 1682758120}
   - CharacterObject: {fileID: 1511617391}
     Name: B
     HP: 0
-    Damage: 0
+    Ego: 0
+    Power: 0
+    Eloquence: 0
     CombatSprite: {fileID: 21300000, guid: a2f4798ba93177d44bd37d98e0818f63, type: 3}
     CombatSpriteRenderer: {fileID: 1511617394}
   - CharacterObject: {fileID: 969073823}
     Name: C
     HP: 0
-    Damage: 0
+    Ego: 0
+    Power: 0
+    Eloquence: 0
     CombatSprite: {fileID: 21300000, guid: a2f4798ba93177d44bd37d98e0818f63, type: 3}
     CombatSpriteRenderer: {fileID: 969073826}
   - CharacterObject: {fileID: 1290033267}
     Name: D
     HP: 0
-    Damage: 0
+    Ego: 0
+    Power: 0
+    Eloquence: 0
     CombatSprite: {fileID: 21300000, guid: a2f4798ba93177d44bd37d98e0818f63, type: 3}
     CombatSpriteRenderer: {fileID: 1290033270}
   AbilitiesManagerObj: {fileID: 776727745}
@@ -857,6 +904,7 @@ MonoBehaviour:
   - {fileID: 1431664354}
   - {fileID: 1236828886}
   AbilitiesObj: {fileID: 776727745}
+  ButtonCurrent: 0
 --- !u!4 &1017858235
 Transform:
   m_ObjectHideFlags: 0
@@ -964,7 +1012,7 @@ GameObject:
   - component: {fileID: 1236828887}
   - component: {fileID: 1236828886}
   m_Layer: 5
-  m_Name: Special3
+  m_Name: Special2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1032,7 +1080,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1236828887}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1017858234}
+        m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
+        m_MethodName: OnClick2
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1236828887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1196,7 +1256,7 @@ GameObject:
   - component: {fileID: 1431664355}
   - component: {fileID: 1431664354}
   m_Layer: 5
-  m_Name: Special2
+  m_Name: Special1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1264,7 +1324,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1431664355}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1017858234}
+        m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
+        m_MethodName: OnClick1
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1431664355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1885,7 +1957,7 @@ GameObject:
   - component: {fileID: 2082352858}
   - component: {fileID: 2082352857}
   m_Layer: 5
-  m_Name: Special1
+  m_Name: Special0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1953,7 +2025,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2082352858}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1017858234}
+        m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
+        m_MethodName: OnClick0
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2082352858
 MonoBehaviour:
   m_ObjectHideFlags: 0

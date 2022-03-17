@@ -12,5 +12,6 @@ public class CharacterCombatAttributes
     public int Eloquence;
     public Sprite CombatSprite;
     public SpriteRenderer CombatSpriteRenderer;
+    [HideInInspector] public bool IsAlly = true;
 }
 
