@@ -75,6 +75,7 @@ public class InventoryWindow : MonoBehaviour
                 _logger.Log($"Showing {_characterInventory.ItemList[i].NumberOfItem} {_characterInventory.ItemList[i].Item} in Slot {CheckFirstEmptySlot()}", this);
                 GameObject itemprefab = Instantiate(_inventoryItemPrefab, _slotsbackground[CheckFirstEmptySlot()].transform);
                 itemprefab.GetComponent<ItemSlot>().Image.sprite = _characterInventory.ItemList[i].InventorySprite;
+                itemprefab.GetComponent<ItemSlot>().Description = _characterInventory.ItemList[i].Description;
                 itemprefab.GetComponent<ItemSlot>().Number.text = _characterInventory.ItemList[i].NumberOfItem.ToString();
                 itemprefab.GetComponent<ItemSlot>().IsUsable= _characterInventory.ItemList[i].IsUsable;
                 itemprefab.GetComponent<ItemSlot>().Item = (ItemSlot.Items)i;

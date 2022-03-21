@@ -15,6 +15,7 @@ public class ItemCharacteristic
         health_potion = 4
     }
     public Items Item;
+    public string Description;
     public int NumberOfItem;
     public Sprite InventorySprite;
     public Sprite InGameSprite;
