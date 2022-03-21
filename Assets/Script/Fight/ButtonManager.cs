@@ -15,7 +15,7 @@ public class ButtonManager : MonoBehaviour
 
     public void ClickFunction()
     {
-        AbilitiesObj.GetComponent<AbilitiesManager>().NewActiveStats();
+        //AbilitiesObj.GetComponent<AbilitiesManager>().NewActiveStats();
     }
 
     public void UpdateSprites()

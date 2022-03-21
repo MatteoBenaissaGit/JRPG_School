@@ -8,9 +8,10 @@ public class PlayerManager : MonoBehaviour
 
     enum SelectionMode
     {
-        DefaultPick,
+        AllyPick,
         Attack,
-        Buff
+        Buff,
+        EnemyPick
     }
 
     SelectionMode _currentMode;
@@ -29,10 +30,10 @@ public class PlayerManager : MonoBehaviour
     private void Start()
     {
         //Character = ListChars[_selectedPlayerIndex];
-       // _logger.Log($"HP of {this.name} : {Character.HP}", this);
+        // _logger.Log($"HP of {this.name} : {Character.HP}", this);
 
         UpdateCharSprite();
-        _currentMode = SelectionMode.DefaultPick;
+        _currentMode = SelectionMode.AllyPick;
     }
     public void Update()
     {
@@ -47,7 +48,7 @@ public class PlayerManager : MonoBehaviour
 
                 if (characterPicked != null)
                 {
-                    if (_currentMode == SelectionMode.DefaultPick)
+                    if (_currentMode == SelectionMode.AllyPick)
                     {
                         for (int i = 0; i < ListChars.Count; i++)
                         {
@@ -96,7 +97,7 @@ public class PlayerManager : MonoBehaviour
                 ListChars[i].CharacterObject.GetComponent<CharacterUI>().UnOutline();
             }
 
-            _currentMode = SelectionMode.DefaultPick;
+            _currentMode = SelectionMode.AllyPick;
         }
     }
     void UpdateCharSprite()
