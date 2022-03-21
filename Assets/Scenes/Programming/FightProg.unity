@@ -442,6 +442,65 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ace62a0ab41b0244da943f6c93e2e988, type: 3}
+--- !u!1 &299472009
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 299472011}
+  - component: {fileID: 299472010}
+  m_Layer: 0
+  m_Name: EnemyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &299472010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 299472009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c01625d6a6bd3044cb5c776b727d838e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ListEnnemy:
+  - CharacterObject: {fileID: 0}
+    Name: 
+    HP: 0
+    Ego: 0
+    CombatSprite: {fileID: 0}
+    CombatSpriteRenderer: {fileID: 0}
+    AbilityIDs: 
+  - CharacterObject: {fileID: 0}
+    Name: 
+    HP: 0
+    Ego: 0
+    CombatSprite: {fileID: 0}
+    CombatSpriteRenderer: {fileID: 0}
+    AbilityIDs: 
+  _logger: {fileID: 0}
+--- !u!4 &299472011
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 299472009}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.0008112155, y: -0.86781615, z: -13.204814}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &320947070
 GameObject:
   m_ObjectHideFlags: 0
@@ -539,7 +598,7 @@ RectTransform:
   - {fileID: 1517160055}
   - {fileID: 1850929638}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -690,7 +749,9 @@ MonoBehaviour:
     ButtonSprite: {fileID: 21300000, guid: 3b8300885976c8144a93403676750067, type: 3}
     AbilityIndex: 0
   UpdatedButtonSprites: []
-  UpdatedCan: 
+  UpdatedCanTargetAlly: 0
+  UpdatedCanTargetHimself: 0
+  UpdatedCanStun: 0
   UpdatedHP: 0
   UpdatedEgo: 0
 --- !u!4 &776727747
@@ -705,7 +766,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &930634249
 GameObject:
@@ -743,31 +804,31 @@ MonoBehaviour:
     Ego: 0
     CombatSprite: {fileID: 21300000, guid: 9322096c93f8b4c4c9075a8abfca8a70, type: 3}
     CombatSpriteRenderer: {fileID: 1682758120}
-    AbilityIDs: 
+    AbilityIDs: 000000000100000002000000
   - CharacterObject: {fileID: 1676279509}
     Name: B
     HP: 0
     Ego: 0
     CombatSprite: {fileID: 21300000, guid: 024e366211ef6a1489d0bc66a9e9e0ab, type: 3}
     CombatSpriteRenderer: {fileID: 1676279513}
-    AbilityIDs: 
+    AbilityIDs: 030000000400000005000000
   - CharacterObject: {fileID: 1023365376}
     Name: C
     HP: 0
     Ego: 0
     CombatSprite: {fileID: 21300000, guid: f6e58de0f0ca3e74494eed83478c672e, type: 3}
     CombatSpriteRenderer: {fileID: 1023365380}
-    AbilityIDs: 
+    AbilityIDs: 000000000100000002000000
   - CharacterObject: {fileID: 1232693571}
     Name: D
     HP: 0
     Ego: 0
     CombatSprite: {fileID: 21300000, guid: 1c53d9c421f3b1f4b9908c43830adb48, type: 3}
     CombatSpriteRenderer: {fileID: 1232693575}
-    AbilityIDs: 
+    AbilityIDs: 030000000400000005000000
   AbilitiesManagerObj: {fileID: 776727745}
   ButtonManagerObj: {fileID: 1017858233}
-  SelectedCharacter: 0
+  SelectedCharacterID: -1
   _logger: {fileID: 1599983925}
 --- !u!4 &930634252
 Transform:
@@ -781,7 +842,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &946105706
 PrefabInstance:
@@ -887,7 +948,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1023365376 stripped
 GameObject:
@@ -1226,7 +1287,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1431664352
 GameObject:
@@ -1921,7 +1982,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 174903987663031923, guid: 27bfd5db698436b469bfc2823839578e, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 174903987663031923, guid: 27bfd5db698436b469bfc2823839578e, type: 3}
       propertyPath: m_LocalPosition.x

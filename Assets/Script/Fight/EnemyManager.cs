@@ -8,9 +8,6 @@ public class EnemyManager : MonoBehaviour
 
     public List<CharacterCombatAttributes> ListEnnemy;
 
-    public GameObject AbilitiesManagerObj;
-
-    public int SelectedCharacter = -1;
 
     [Header("---Debug---")]
     [SerializeField] private Logger _logger;

@@ -21,7 +21,7 @@ public class PlayerManager : MonoBehaviour
     public GameObject AbilitiesManagerObj;
     public GameObject ButtonManagerObj;
 
-    public int SelectedCharacter = -1;
+    public int SelectedCharacterID = -1;
     int _selectedButtons;
 
     [Header("---Debug---")]
@@ -61,12 +61,12 @@ public class PlayerManager : MonoBehaviour
                         {
                             if (ListChars[i].CharacterObject.GetComponent<CharacterUI>().IsActive == true)
                             {
-                                SelectedCharacter = i;
+                                SelectedCharacterID = i;
                             }
                         }
                         //_currentMode = SelectionMode.Attack;
 
-                        AbilitiesManagerObj.GetComponent<AbilitiesManager>().NewActiveSprites();
+                        AbilitiesManagerObj.GetComponent<AbilitiesManager>().NewButtonSprites();
                         ButtonManagerObj.GetComponent<ButtonManager>().UpdateSprites();
                     }
 
@@ -90,7 +90,7 @@ public class PlayerManager : MonoBehaviour
 
         if (Input.GetMouseButton(1))
         {
-            SelectedCharacter = -1; //Unselects character
+            SelectedCharacterID = -1; //Unselects character
 
             for (int i = 0; i < ListChars.Count; i++)
             {
