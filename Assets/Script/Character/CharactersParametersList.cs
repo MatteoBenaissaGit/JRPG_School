@@ -10,6 +10,9 @@ public class CharacterParameter
 {
     public string Name;
     public float Life;
+    public float Ego;
+    public float Eloquence;
+    public float Puissance;
     public int Level = 0;
     public float ExperiencePoint;
     public float ExperiencePointToUpgrade;

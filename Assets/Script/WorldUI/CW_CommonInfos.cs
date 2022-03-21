@@ -20,6 +20,9 @@ public class CW_CommonInfos : MonoBehaviour
     [SerializeField] private Image _icon;
     [SerializeField] private Image _exeperience;
     [SerializeField] private TextMeshProUGUI _level;
+    [SerializeField] private TextMeshProUGUI _ego;
+    [SerializeField] private TextMeshProUGUI _eloquence;
+    [SerializeField] private TextMeshProUGUI _puissance;
     [Header("Character Parent Referencing")]
     [SerializeField] private CharactersParametersList _characterParameterList;
 
@@ -32,22 +35,13 @@ public class CW_CommonInfos : MonoBehaviour
             CharactersAnims.Add(CharactersInfosList[i].CharactersAnim);
             CharactersInfosList[i].CharactersAnim.SetActive(false);
         }
-        CharactersInfosList[0].CharactersAnim.SetActive(true);
-        _name.text = _characterParameterList.CharactersListing[0].Name;
-        _icon.sprite = _characterParameterList.CharactersListing[0].Icon;
-        _life.fillAmount = _characterParameterList.CharactersListing[0].Life / 100;
-        _level.text = _characterParameterList.CharactersListing[0].Level.ToString();
-        _exeperience.fillAmount = _characterParameterList.CharactersListing[0].ExperiencePoint / _characterParameterList.CharactersListing[0].ExperiencePointToUpgrade;
+        UpdateCharacterCommonInfos(0);
+
     }
 
     public void ShowCharacter(int characterNumber)
     {
-        CharactersInfosList[characterNumber].CharactersAnim.SetActive(true);
-        _name.text = _characterParameterList.CharactersListing[characterNumber].Name;
-        _icon.sprite = _characterParameterList.CharactersListing[characterNumber].Icon;
-        _life.fillAmount = _characterParameterList.CharactersListing[characterNumber].Life/100;
-        _level.text = _characterParameterList.CharactersListing[characterNumber].Level.ToString();
-        _exeperience.fillAmount = _characterParameterList.CharactersListing[characterNumber].ExperiencePoint / _characterParameterList.CharactersListing[characterNumber].ExperiencePointToUpgrade;
+        UpdateCharacterCommonInfos(characterNumber);
         for (int i = 0; i < CharactersInfosList.Count; i++)
         {
             if (i!=characterNumber)
@@ -75,5 +69,19 @@ public class CW_CommonInfos : MonoBehaviour
         if (i + 1 >= CharactersInfosList.Count)
             animatorNumber = 0;
         return animatorNumber;
+    }
+
+    private void UpdateCharacterCommonInfos(int characterNumber)
+    {
+        CharactersInfosList[characterNumber].CharactersAnim.SetActive(true);
+        _name.text = _characterParameterList.CharactersListing[characterNumber].Name;
+        _icon.sprite = _characterParameterList.CharactersListing[characterNumber].Icon;
+        _life.fillAmount = _characterParameterList.CharactersListing[characterNumber].Life / 100;
+        _level.text = _characterParameterList.CharactersListing[characterNumber].Level.ToString();
+        _exeperience.fillAmount = _characterParameterList.CharactersListing[characterNumber].ExperiencePoint / _characterParameterList.CharactersListing[characterNumber].ExperiencePointToUpgrade;
+        //Stats
+        _ego.text = "Ego : " + _characterParameterList.CharactersListing[characterNumber].Ego.ToString();
+        _eloquence.text = "Eloquence : " + _characterParameterList.CharactersListing[characterNumber].Eloquence.ToString();
+        _puissance.text = "Puissance : " + _characterParameterList.CharactersListing[characterNumber].Puissance.ToString();
     }
 }
