@@ -12,6 +12,8 @@ public class HighlightTag : MonoBehaviour
     public TextMeshProUGUI Name;
     public Image Life;
     public Image Background;
+    public Image Experience;
+    public TextMeshProUGUI Level;
 
     [Header("Effect Variables")]
     [SerializeField] [Range(0.1f, 3.0f)] private float _scaleMultiplicator;

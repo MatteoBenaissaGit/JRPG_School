@@ -18,18 +18,34 @@ public class ItemSlot : MonoBehaviour
     public Items Item;
     public Image Image;
     public TextMeshProUGUI Number;
+    public string Description;
     public bool IsUsable;
 
     [HideInInspector] public bool IsRightClicked = false;
 
+    [SerializeField] private GameObject _descriptionBox;
+    [SerializeField] private TextMeshProUGUI _name;
+    [SerializeField] private TextMeshProUGUI _description;
+
+    private void Start()
+    {
+        _name.text = Item.ToString();
+        _description.text = Description;
+        _descriptionBox.SetActive(false);
+    }
+
     private void OnMouseOver()
     {
+        _descriptionBox.SetActive(true);
+
         if (Input.GetMouseButtonDown(1))
             RightClicked();
     }
 
     private void OnMouseExit()
     {
+        _descriptionBox.SetActive(false);
+
         IsRightClicked = false;
     }
 
