@@ -6,16 +6,17 @@ using UnityEngine.UI;
 public class ButtonManager : MonoBehaviour
 {
     public List<Button> AbilitiesButtons;
-
  
     public GameObject AbilitiesObj;
+    public GameObject PlayerManagerObj;
 
     public int ButtonCurrent;
 
 
-    public void ClickFunction()
+    public void WhenButtonClicked()
     {
-        //AbilitiesObj.GetComponent<AbilitiesManager>().NewActiveStats();
+        AbilitiesObj.GetComponent<AbilitiesManager>().NewActiveStats();
+        PlayerManagerObj.GetComponent<PlayerManager>().SetAttackMode();
     }
 
     public void UpdateSprites()
@@ -29,18 +30,18 @@ public class ButtonManager : MonoBehaviour
     public void OnClick0()
     {
         ButtonCurrent = 0;
-        ClickFunction();
+        WhenButtonClicked();
     }
 
     public void OnClick1()
     {
         ButtonCurrent = 1;
-        ClickFunction();
+        WhenButtonClicked();
     }
 
     public void OnClick2()
     {
         ButtonCurrent = 2;
-        ClickFunction();
+        WhenButtonClicked();
     }
 }

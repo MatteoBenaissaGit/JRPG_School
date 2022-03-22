@@ -64,7 +64,7 @@ public class PlayerManager : MonoBehaviour
                                 SelectedCharacterID = i;
                             }
                         }
-                        //_currentMode = SelectionMode.Attack;
+                        
 
                         AbilitiesManagerObj.GetComponent<AbilitiesManager>().NewButtonSprites();
                         ButtonManagerObj.GetComponent<ButtonManager>().UpdateSprites();
@@ -106,5 +106,10 @@ public class PlayerManager : MonoBehaviour
         {
             character.CombatSpriteRenderer.sprite = character.CombatSprite;   
         }
+    }
+
+    public void SetAttackMode()
+    {
+        _currentMode = SelectionMode.Attack;
     }
 }
