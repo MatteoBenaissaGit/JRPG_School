@@ -12,6 +12,7 @@ public class CharacterCombatAttributes
     public int Power;
     public int Eloquence;
     public int CriticalPercentage;
+    public bool IsStuned;
     public Sprite CombatSprite;
     public SpriteRenderer CombatSpriteRenderer;
     public List<int> AbilityIDs;

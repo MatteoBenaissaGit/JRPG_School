@@ -11,7 +11,6 @@ public class Abilities
     public bool CanTargetAlly;
     public bool CanTargetHimself;
     public bool CanStun;
-    public bool IsStuned;
     public Sprite ButtonSprite;
     [HideInInspector] public int AbilityIndex;
 }

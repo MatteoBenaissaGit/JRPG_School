@@ -555,6 +555,7 @@ MonoBehaviour:
     Power: 0
     Eloquence: 0
     CriticalPercentage: 0
+    IsStuned: 0
     CombatSprite: {fileID: 0}
     CombatSpriteRenderer: {fileID: 0}
     AbilityIDs: 
@@ -566,6 +567,7 @@ MonoBehaviour:
     Power: 0
     Eloquence: 0
     CriticalPercentage: 0
+    IsStuned: 0
     CombatSprite: {fileID: 0}
     CombatSpriteRenderer: {fileID: 0}
     AbilityIDs: 
@@ -786,7 +788,6 @@ MonoBehaviour:
     CanTargetAlly: 0
     CanTargetHimself: 0
     CanStun: 0
-    IsStuned: 0
     ButtonSprite: {fileID: 21300000, guid: cdcb9a387af03864eb43703d89029811, type: 3}
     AbilityIndex: 0
   - AbilityName: Self Heal
@@ -796,7 +797,6 @@ MonoBehaviour:
     CanTargetAlly: 0
     CanTargetHimself: 1
     CanStun: 0
-    IsStuned: 0
     ButtonSprite: {fileID: 21300000, guid: 70f24345a99c5f44b9a47586377c070c, type: 3}
     AbilityIndex: 0
   - AbilityName: Ally Heal
@@ -806,7 +806,6 @@ MonoBehaviour:
     CanTargetAlly: 1
     CanTargetHimself: 0
     CanStun: 0
-    IsStuned: 0
     ButtonSprite: {fileID: 21300000, guid: 7060b908fdc48b44aa41b45a6219e678, type: 3}
     AbilityIndex: 0
   - AbilityName: Test 1
@@ -816,7 +815,6 @@ MonoBehaviour:
     CanTargetAlly: 1
     CanTargetHimself: 0
     CanStun: 0
-    IsStuned: 0
     ButtonSprite: {fileID: 21300000, guid: 4953857ad0d06164ab37d262e9e68292, type: 3}
     AbilityIndex: 0
   - AbilityName: Test 2
@@ -826,7 +824,6 @@ MonoBehaviour:
     CanTargetAlly: 1
     CanTargetHimself: 0
     CanStun: 0
-    IsStuned: 0
     ButtonSprite: {fileID: 21300000, guid: 5dba4c033cb4e7543bd7a3e828da2107, type: 3}
     AbilityIndex: 0
   - AbilityName: Test 3
@@ -836,7 +833,6 @@ MonoBehaviour:
     CanTargetAlly: 1
     CanTargetHimself: 0
     CanStun: 0
-    IsStuned: 0
     ButtonSprite: {fileID: 21300000, guid: 3b8300885976c8144a93403676750067, type: 3}
     AbilityIndex: 0
   UpdatedButtonSprites: []
@@ -905,7 +901,8 @@ MonoBehaviour:
     Ego: 50
     Power: 20
     Eloquence: 20
-    CriticalPercentage: 0
+    CriticalPercentage: 15
+    IsStuned: 0
     CombatSprite: {fileID: 21300000, guid: 9322096c93f8b4c4c9075a8abfca8a70, type: 3}
     CombatSpriteRenderer: {fileID: 1682758120}
     AbilityIDs: 000000000100000002000000
@@ -917,6 +914,7 @@ MonoBehaviour:
     Power: 0
     Eloquence: 0
     CriticalPercentage: 0
+    IsStuned: 0
     CombatSprite: {fileID: 21300000, guid: 024e366211ef6a1489d0bc66a9e9e0ab, type: 3}
     CombatSpriteRenderer: {fileID: 1676279513}
     AbilityIDs: 030000000400000005000000
@@ -928,6 +926,7 @@ MonoBehaviour:
     Power: 0
     Eloquence: 0
     CriticalPercentage: 0
+    IsStuned: 0
     CombatSprite: {fileID: 21300000, guid: f6e58de0f0ca3e74494eed83478c672e, type: 3}
     CombatSpriteRenderer: {fileID: 1023365380}
     AbilityIDs: 000000000100000002000000
@@ -939,6 +938,7 @@ MonoBehaviour:
     Power: 0
     Eloquence: 0
     CriticalPercentage: 0
+    IsStuned: 0
     CombatSprite: {fileID: 21300000, guid: 1c53d9c421f3b1f4b9908c43830adb48, type: 3}
     CombatSpriteRenderer: {fileID: 1232693575}
     AbilityIDs: 030000000400000005000000
