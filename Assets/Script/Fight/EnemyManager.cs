@@ -23,4 +23,11 @@ public class EnemyManager : MonoBehaviour
     {
 
     }
+    public void StockStartEgo()
+    {
+        for (int i = 0; i < ListEnnemy.Count; i++)
+        {
+            ListEnnemy[i].StartEgo = ListEnnemy[i].Ego;
+        }
+    }
 }

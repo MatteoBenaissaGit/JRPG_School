@@ -1,11 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
-
     enum SelectionMode
     {
         AllyPick,
@@ -20,6 +18,9 @@ public class PlayerManager : MonoBehaviour
 
     public GameObject AbilitiesManagerObj;
     public GameObject ButtonManagerObj;
+    public GameObject EnemyManagerObj;
+
+    int _numberOfAllies = 0;
 
     public int SelectedCharacterID = -1;
     int _selectedButtons;
@@ -34,10 +35,11 @@ public class PlayerManager : MonoBehaviour
 
         UpdateCharSprite();
         _currentMode = SelectionMode.AllyPick;
+        StockStartEgo();
     }
     public void Update()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
@@ -57,14 +59,7 @@ public class PlayerManager : MonoBehaviour
 
                         characterPicked.Outline();
 
-                        for (int i = 0; i < ListChars.Count; i++)
-                        {
-                            if (ListChars[i].CharacterObject.GetComponent<CharacterUI>().IsActive == true)
-                            {
-                                SelectedCharacterID = i;
-                            }
-                        }
-                        
+                        SelectedCharacterID = characterPicked.CharacterIndex;
 
                         AbilitiesManagerObj.GetComponent<AbilitiesManager>().NewButtonSprites();
                         ButtonManagerObj.GetComponent<ButtonManager>().UpdateSprites();
@@ -72,23 +67,35 @@ public class PlayerManager : MonoBehaviour
 
                     if (_currentMode == SelectionMode.Attack)
                     {
-                        // Selectionner un joueur allié = impossible, prog le message
+                        if (AbilitiesManagerObj.GetComponent<AbilitiesManager>().UpdatedCanTargetAlly == true && characterPicked.IsAlly == true 
+                            && characterPicked.CharacterIndex != SelectedCharacterID)
+                        {
+                            Buff(characterPicked);
+                        }
+
+                        if (AbilitiesManagerObj.GetComponent<AbilitiesManager>().UpdatedCanTargetHimself == true && characterPicked.IsAlly == true 
+                            && characterPicked.CharacterIndex == SelectedCharacterID)
+                        {
+                            Buff(characterPicked);
+                        }
+
+                        if (characterPicked.IsAlly == false)
+                        {
+                            AttackOnEnemy(characterPicked);
+                        }
+
+
                     }
 
-                    if (_currentMode == SelectionMode.Buff)
+                    if (_currentMode == SelectionMode.EnemyPick)
                     {
-                        for (int i = 0; i < ListChars.Count; i++)
-                        {
-                            ListChars[i].CharacterObject.GetComponent<CharacterUI>().UnOutline();
-                        }
-                        characterPicked.Outline();
+
                     }
                 }
-
             }
         }
 
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButtonDown(1))
         {
             SelectedCharacterID = -1; //Unselects character
 
@@ -104,12 +111,81 @@ public class PlayerManager : MonoBehaviour
     {
         foreach (var character in ListChars)
         {
-            character.CombatSpriteRenderer.sprite = character.CombatSprite;   
+            character.CombatSpriteRenderer.sprite = character.CombatSprite;
         }
     }
 
     public void SetAttackMode()
     {
         _currentMode = SelectionMode.Attack;
+    }
+
+
+
+
+    public void AttackOnEnemy(CharacterUI Defender)
+    {
+        int updatedHP = AbilitiesManagerObj.GetComponent<AbilitiesManager>().UpdatedHP;
+        int updatedEgo = AbilitiesManagerObj.GetComponent<AbilitiesManager>().UpdatedEgo;
+
+        int picker = Random.Range(1, 100);
+
+        if (picker <= ListChars[SelectedCharacterID].CriticalPercentage)
+        {
+            updatedHP = updatedHP * 2;
+            updatedEgo = updatedEgo * 2;
+        }
+
+        if (EnemyManagerObj.GetComponent<EnemyManager>().ListEnnemy[Defender.CharacterIndex].Ego > 
+            EnemyManagerObj.GetComponent<EnemyManager>().ListEnnemy[Defender.CharacterIndex].StartEgo / 2)
+        {
+            updatedHP = updatedHP / 2;
+        }
+
+        EnemyManagerObj.GetComponent<EnemyManager>().ListEnnemy[Defender.CharacterIndex - _numberOfAllies].HP -= updatedHP;
+        EnemyManagerObj.GetComponent<EnemyManager>().ListEnnemy[Defender.CharacterIndex - _numberOfAllies].Ego -= updatedEgo;
+
+        for (int i = 0; i < ListChars.Count; i++)
+        {
+            ListChars[i].CharacterObject.GetComponent<CharacterUI>().UnOutline();
+        }
+
+        ButtonManagerObj.GetComponent<ButtonManager>().ResetDefeultSprites();
+        _currentMode = SelectionMode.AllyPick;
+    }
+
+
+
+
+    public void Buff(CharacterUI Defender)
+    {
+        int updatedHP = AbilitiesManagerObj.GetComponent<AbilitiesManager>().UpdatedHP;
+        int updatedEgo = AbilitiesManagerObj.GetComponent<AbilitiesManager>().UpdatedEgo;
+
+        ListChars[Defender.CharacterIndex].HP += updatedHP;
+        ListChars[Defender.CharacterIndex].Ego += updatedEgo;
+
+        for (int i = 0; i < ListChars.Count; i++)
+        {
+            ListChars[i].CharacterObject.GetComponent<CharacterUI>().UnOutline();
+        }
+
+        ButtonManagerObj.GetComponent<ButtonManager>().ResetDefeultSprites();
+        _currentMode = SelectionMode.AllyPick;
+    }
+
+    public void StockStartEgo()
+    {
+        for (int i = 0; i < ListChars.Count; i++)
+        {
+            ListChars[i].StartEgo = ListChars[i].Ego;
+        }
+    }
+    public void StockNumberOfAllies()
+    {
+        for (int i = 0; i < ListChars.Count; i++)
+        {
+            _numberOfAllies++;
+        }
     }
 }

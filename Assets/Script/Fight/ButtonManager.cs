@@ -6,17 +6,31 @@ using UnityEngine.UI;
 public class ButtonManager : MonoBehaviour
 {
     public List<Button> AbilitiesButtons;
- 
+
     public GameObject AbilitiesObj;
     public GameObject PlayerManagerObj;
 
+    public Sprite DefaultButtonSprite;
+
     public int ButtonCurrent;
 
+    private void Start()
+    {
+        ResetDefeultSprites();
+    }
 
     public void WhenButtonClicked()
     {
         AbilitiesObj.GetComponent<AbilitiesManager>().NewActiveStats();
         PlayerManagerObj.GetComponent<PlayerManager>().SetAttackMode();
+    }
+
+    public void ResetDefeultSprites()
+    {
+        foreach (var button in AbilitiesButtons)
+        {
+            button.image.sprite = DefaultButtonSprite;
+        }
     }
 
     public void UpdateSprites()
