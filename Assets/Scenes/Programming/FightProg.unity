@@ -556,6 +556,7 @@ MonoBehaviour:
     Eloquence: 0
     CriticalPercentage: 0
     IsStuned: 0
+    HasPlayed: 0
     CombatSprite: {fileID: 0}
     CombatSpriteRenderer: {fileID: 0}
     AbilityIDs: 
@@ -568,11 +569,17 @@ MonoBehaviour:
     Eloquence: 0
     CriticalPercentage: 0
     IsStuned: 0
+    HasPlayed: 0
     CombatSprite: {fileID: 0}
     CombatSpriteRenderer: {fileID: 0}
     AbilityIDs: 
     StartEgo: 0
   _logger: {fileID: 0}
+  AbilitiesManagerObj: {fileID: 0}
+  EnemyManagerObj: {fileID: 0}
+  TransparencyValue: 0
+  ActiveEnemyAbility: 0
+  SelectedEnemyID: -1
 --- !u!4 &299472011
 Transform:
   m_ObjectHideFlags: 0
@@ -903,6 +910,7 @@ MonoBehaviour:
     Eloquence: 20
     CriticalPercentage: 15
     IsStuned: 0
+    HasPlayed: 0
     CombatSprite: {fileID: 21300000, guid: 9322096c93f8b4c4c9075a8abfca8a70, type: 3}
     CombatSpriteRenderer: {fileID: 1682758120}
     AbilityIDs: 000000000100000002000000
@@ -915,6 +923,7 @@ MonoBehaviour:
     Eloquence: 0
     CriticalPercentage: 0
     IsStuned: 0
+    HasPlayed: 0
     CombatSprite: {fileID: 21300000, guid: 024e366211ef6a1489d0bc66a9e9e0ab, type: 3}
     CombatSpriteRenderer: {fileID: 1676279513}
     AbilityIDs: 030000000400000005000000
@@ -927,6 +936,7 @@ MonoBehaviour:
     Eloquence: 0
     CriticalPercentage: 0
     IsStuned: 0
+    HasPlayed: 0
     CombatSprite: {fileID: 21300000, guid: f6e58de0f0ca3e74494eed83478c672e, type: 3}
     CombatSpriteRenderer: {fileID: 1023365380}
     AbilityIDs: 000000000100000002000000
@@ -939,6 +949,7 @@ MonoBehaviour:
     Eloquence: 0
     CriticalPercentage: 0
     IsStuned: 0
+    HasPlayed: 0
     CombatSprite: {fileID: 21300000, guid: 1c53d9c421f3b1f4b9908c43830adb48, type: 3}
     CombatSpriteRenderer: {fileID: 1232693575}
     AbilityIDs: 030000000400000005000000
@@ -946,6 +957,7 @@ MonoBehaviour:
   AbilitiesManagerObj: {fileID: 776727745}
   ButtonManagerObj: {fileID: 1017858233}
   EnemyManagerObj: {fileID: 299472009}
+  TransparencyValue: 0.5
   SelectedCharacterID: -1
   _logger: {fileID: 1599983925}
 --- !u!4 &930634252

@@ -47,14 +47,14 @@ public class AbilitiesManager : MonoBehaviour
     }
     public void NewActiveStats()
     {
+        UpdatedCanTargetAlly = false;
+        UpdatedCanStun = false;
+        UpdatedCanTargetHimself = false;
+        UpdatedHP = 0;
+        UpdatedEgo = 0;
+
         if (PlayerManagerObj.GetComponent<PlayerManager>().SelectedCharacterID >= 0)
         {
-            UpdatedCanTargetAlly = false;
-            UpdatedCanStun = false;
-            UpdatedCanTargetHimself = false;
-            UpdatedHP = 0;
-            UpdatedEgo = 0;
-
             int charid = PlayerManagerObj.GetComponent<PlayerManager>().SelectedCharacterID;
             CharacterCombatAttributes character = PlayerManagerObj.GetComponent<PlayerManager>().ListChars[charid];
 
@@ -86,24 +86,49 @@ public class AbilitiesManager : MonoBehaviour
                     }
                 }
             }
-
-            Debug.Log(UpdatedHP);
-            Debug.Log(UpdatedEgo);
         }
 
-        //if (PlayerManagerObj.GetComponent<PlayerManager>().SelectedCharacterID < 0)
-        //{
-        //    int charid = PlayerManagerObj.GetComponent<PlayerManager>().SelectedCharacterID;
-        //    CharacterCombatAttributes character = PlayerManagerObj.GetComponent<PlayerManager>().ListChars[charid];
-
-        //    foreach (int abilityID in character.AbilityIDs)
-        //    {
-        //        if (ButtonManagerObj.GetComponent<ButtonManager>().ButtonCurrent == GetAbilitiesByID(abilityID).ButtonIndex)
-        //        {
-        //            UpdatedHP = character.HP + GetAbilitiesByID(abilityID).HealthChange;
-        //            UpdatedEgo = character.Ego + GetAbilitiesByID(abilityID).EgoChange;
-        //        }
-        //    }
-        //}
     }
+
+    public void NewActiveEnemyStats()
+    {
+        UpdatedCanTargetAlly = false;
+        UpdatedCanStun = false;
+        UpdatedCanTargetHimself = false;
+        UpdatedHP = 0;
+        UpdatedEgo = 0;
+
+        int abilityID = EnemyManagerObj.GetComponent<EnemyManager>().ActiveEnemyAbility;
+
+        int charid = EnemyManagerObj.GetComponent<EnemyManager>().SelectedEnemyID;
+        CharacterCombatAttributes character = EnemyManagerObj.GetComponent<EnemyManager>().ListEnnemy[charid];
+
+        if (EnemyManagerObj.GetComponent<EnemyManager>().SelectedEnemyID >= 0)
+        {
+            UpdatedCanTargetAlly = GetAbilitiesByID(abilityID).CanTargetAlly;
+            UpdatedCanTargetHimself = GetAbilitiesByID(abilityID).CanTargetHimself;
+            UpdatedCanStun = GetAbilitiesByID(abilityID).CanStun;
+        }
+
+        if (UpdatedCanTargetHimself == true || UpdatedCanTargetAlly == true)
+        {
+            UpdatedHP = GetAbilitiesByID(abilityID).HealthChange;
+            UpdatedEgo = GetAbilitiesByID(abilityID).EgoChange;
+        }
+
+        else
+        {
+            if (GetAbilitiesByID(abilityID).HealthChange != 0)
+                UpdatedHP = character.Power + GetAbilitiesByID(abilityID).HealthChange;
+            else
+                UpdatedHP = GetAbilitiesByID(abilityID).HealthChange;
+
+            if (GetAbilitiesByID(abilityID).EgoChange != 0)
+                UpdatedEgo = character.Eloquence + GetAbilitiesByID(abilityID).EgoChange;
+            else
+                UpdatedEgo = GetAbilitiesByID(abilityID).EgoChange;
+
+        }
+    }
+
 }

@@ -8,8 +8,8 @@ public class PlayerManager : MonoBehaviour
     {
         AllyPick,
         Attack,
-        Buff,
-        EnemyPick
+        CheckIfNewRound,
+        Waiting
     }
 
     SelectionMode _currentMode;
@@ -21,6 +21,9 @@ public class PlayerManager : MonoBehaviour
     public GameObject EnemyManagerObj;
 
     int _numberOfAllies = 0;
+    int _numberOfPlayedAllies = 0;
+
+    public float TransparencyValue;
 
     public int SelectedCharacterID = -1;
     int _selectedButtons;
@@ -36,9 +39,29 @@ public class PlayerManager : MonoBehaviour
         UpdateCharSprite();
         _currentMode = SelectionMode.AllyPick;
         StockStartEgo();
+
+        foreach (var item in ListChars)
+        {
+            _numberOfAllies++;
+        }
     }
     public void Update()
     {
+        if (_currentMode == SelectionMode.CheckIfNewRound)
+        {
+            if (_numberOfPlayedAllies == _numberOfAllies)
+            {
+                NewRound();
+            }
+            else
+                _currentMode = SelectionMode.AllyPick;
+        }
+
+        if (_currentMode == SelectionMode.Waiting)
+        {
+
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -81,15 +104,12 @@ public class PlayerManager : MonoBehaviour
 
                         if (characterPicked.IsAlly == false)
                         {
-                            AttackOnEnemy(characterPicked);
+                            if (AbilitiesManagerObj.GetComponent<AbilitiesManager>().UpdatedCanTargetAlly == false
+                                && AbilitiesManagerObj.GetComponent<AbilitiesManager>().UpdatedCanTargetHimself == false)
+                            {
+                                AttackOnEnemy(characterPicked);
+                            }
                         }
-
-
-                    }
-
-                    if (_currentMode == SelectionMode.EnemyPick)
-                    {
-
                     }
                 }
             }
@@ -121,8 +141,6 @@ public class PlayerManager : MonoBehaviour
     }
 
 
-
-
     public void AttackOnEnemy(CharacterUI Defender)
     {
         int updatedHP = AbilitiesManagerObj.GetComponent<AbilitiesManager>().UpdatedHP;
@@ -142,8 +160,8 @@ public class PlayerManager : MonoBehaviour
             updatedHP = updatedHP / 2;
         }
 
-        EnemyManagerObj.GetComponent<EnemyManager>().ListEnnemy[Defender.CharacterIndex - _numberOfAllies].HP -= updatedHP;
-        EnemyManagerObj.GetComponent<EnemyManager>().ListEnnemy[Defender.CharacterIndex - _numberOfAllies].Ego -= updatedEgo;
+        EnemyManagerObj.GetComponent<EnemyManager>().ListEnnemy[Defender.CharacterIndex].HP -= updatedHP;
+        EnemyManagerObj.GetComponent<EnemyManager>().ListEnnemy[Defender.CharacterIndex].Ego -= updatedEgo;
 
         for (int i = 0; i < ListChars.Count; i++)
         {
@@ -152,6 +170,8 @@ public class PlayerManager : MonoBehaviour
 
         ButtonManagerObj.GetComponent<ButtonManager>().ResetDefeultSprites();
         _currentMode = SelectionMode.AllyPick;
+
+        EndOfTurn();
     }
 
 
@@ -172,6 +192,8 @@ public class PlayerManager : MonoBehaviour
 
         ButtonManagerObj.GetComponent<ButtonManager>().ResetDefeultSprites();
         _currentMode = SelectionMode.AllyPick;
+
+        EndOfTurn();
     }
 
     public void StockStartEgo()
@@ -187,5 +209,36 @@ public class PlayerManager : MonoBehaviour
         {
             _numberOfAllies++;
         }
+    }
+
+    public void NewRound()
+    {
+        for (int i = 0; i < ListChars.Count; i++)
+        {
+            Color newColor = ListChars[i].CombatSpriteRenderer.color;
+            newColor.a = 1f;
+
+            ListChars[i].CombatSpriteRenderer.color = newColor;
+
+            ListChars[i].HasPlayed = false;
+            _numberOfPlayedAllies--;
+        }
+
+        if (_numberOfPlayedAllies == 0)
+            _currentMode = SelectionMode.AllyPick;
+    }
+
+    public void EndOfTurn()
+    {
+        Color tempColor = ListChars[SelectedCharacterID].CombatSpriteRenderer.color;
+        tempColor.a = TransparencyValue;
+
+        ListChars[SelectedCharacterID].CombatSpriteRenderer.color = tempColor;
+
+        ListChars[SelectedCharacterID].HasPlayed = true;
+        _numberOfPlayedAllies++;
+
+        _currentMode = SelectionMode.CheckIfNewRound;
+
     }
 }
