@@ -128,7 +128,11 @@ public class AbilitiesManager : MonoBehaviour
             else
                 UpdatedEgo = GetAbilitiesByID(abilityID).EgoChange;
 
+
         }
+            Debug.Log(UpdatedHP);
+            Debug.Log(UpdatedEgo);
     }
+
 
 }

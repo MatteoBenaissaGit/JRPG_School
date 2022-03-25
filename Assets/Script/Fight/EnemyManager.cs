@@ -22,14 +22,15 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private Logger _logger;
 
     public GameObject AbilitiesManagerObj;
-    public GameObject EnemyManagerObj;
 
     public float TransparencyValue;
     [HideInInspector] public int ActiveEnemyAbility;
 
+    List<int> _ennemyPickerList = new List<int>();
+
     int _numberOfAbilities;
 
-    int _numberOfEnemies = 0;
+    int _numberOfPlayableEnemies = 0;
     int _numberOfPlayedEnemies = 0;
 
     public int SelectedEnemyID = -1;
@@ -39,13 +40,14 @@ public class EnemyManager : MonoBehaviour
         //Character = ListChars[_selectedPlayerIndex];
         // _logger.Log($"HP of {this.name} : {Character.HP}", this);
 
-        UpdateCharSprite();
-        _currentMode = SelectionMode.Waiting;
+        //UpdateCharSprite();
+        _currentMode = SelectionMode.EnemyPick;
         StockStartEgo();
 
         foreach (var item in ListEnnemy)
         {
-            _numberOfEnemies++;
+            _numberOfPlayableEnemies++;
+            _ennemyPickerList.Add(_numberOfPlayableEnemies);
         }
     }
 
@@ -53,14 +55,12 @@ public class EnemyManager : MonoBehaviour
     {
         if (_currentMode == SelectionMode.EnemyPick)
         {
-            int picker = Random.Range(0, _numberOfEnemies - 1);
+            int picker = Random.Range(0, _numberOfPlayableEnemies - 1);
             SelectedEnemyID = picker;
 
-            while (ListEnnemy[SelectedEnemyID].HasPlayed == true)
-            {
-                int newPicker = Random.Range(0, _numberOfEnemies - 1);
-                SelectedEnemyID = newPicker;
-            }
+            CharacterUI characterPicked = ListEnnemy[SelectedEnemyID].CharacterObject.GetComponent<CharacterUI>();
+
+            _currentMode = SelectionMode.Attack;
         }
 
         if (_currentMode == SelectionMode.Attack)
@@ -74,6 +74,11 @@ public class EnemyManager : MonoBehaviour
             ActiveEnemyAbility = ListEnnemy[SelectedEnemyID].AbilityIDs[abilityPicker];
 
             AbilitiesManagerObj.GetComponent<AbilitiesManager>().NewActiveEnemyStats();
+
+            CharacterUI characterPicked = ListEnnemy[SelectedEnemyID].CharacterObject.GetComponent<CharacterUI>();
+
+            _currentMode = SelectionMode.Waiting;
+
 
             //if (AbilitiesManagerObj.GetComponent<AbilitiesManager>().UpdatedCanTargetAlly == false && characterPicked.IsAlly == false
             //&& characterPicked.CharacterIndex != SelectedEnemyID)
@@ -95,6 +100,11 @@ public class EnemyManager : MonoBehaviour
             //        AttackOnAlly(characterPicked);
             //    }
             //}
+        }
+
+        if (_currentMode == SelectionMode.Waiting)
+        {
+
         }
 
     }
@@ -128,14 +138,13 @@ public class EnemyManager : MonoBehaviour
             updatedEgo = updatedEgo * 2;
         }
 
-        if (EnemyManagerObj.GetComponent<EnemyManager>().ListEnnemy[Defender.CharacterIndex].Ego >
-            EnemyManagerObj.GetComponent<EnemyManager>().ListEnnemy[Defender.CharacterIndex].StartEgo / 2)
+        if (ListEnnemy[Defender.CharacterIndex].Ego > ListEnnemy[Defender.CharacterIndex].StartEgo / 2)
         {
             updatedHP = updatedHP / 2;
         }
 
-        EnemyManagerObj.GetComponent<EnemyManager>().ListEnnemy[Defender.CharacterIndex].HP -= updatedHP;
-        EnemyManagerObj.GetComponent<EnemyManager>().ListEnnemy[Defender.CharacterIndex].Ego -= updatedEgo;
+        ListEnnemy[Defender.CharacterIndex].HP -= updatedHP;
+        ListEnnemy[Defender.CharacterIndex].Ego -= updatedEgo;
 
         for (int i = 0; i < ListEnnemy.Count; i++)
         {
@@ -172,7 +181,7 @@ public class EnemyManager : MonoBehaviour
     {
         for (int i = 0; i < ListEnnemy.Count; i++)
         {
-            _numberOfEnemies++;
+            _numberOfPlayableEnemies++;
         }
     }
 

@@ -138,6 +138,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharacterEnemy1
       objectReference: {fileID: 0}
+    - target: {fileID: 5535175895963101636, guid: ace62a0ab41b0244da943f6c93e2e988, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5535175895963101637, guid: ace62a0ab41b0244da943f6c93e2e988, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -559,24 +563,10 @@ MonoBehaviour:
     HasPlayed: 0
     CombatSprite: {fileID: 0}
     CombatSpriteRenderer: {fileID: 0}
-    AbilityIDs: 
-    StartEgo: 0
-  - CharacterObject: {fileID: 1855982872}
-    Name: B
-    HP: 0
-    Ego: 0
-    Power: 0
-    Eloquence: 0
-    CriticalPercentage: 0
-    IsStuned: 0
-    HasPlayed: 0
-    CombatSprite: {fileID: 0}
-    CombatSpriteRenderer: {fileID: 0}
-    AbilityIDs: 
+    AbilityIDs: 000000000400000005000000
     StartEgo: 0
   _logger: {fileID: 0}
-  AbilitiesManagerObj: {fileID: 0}
-  EnemyManagerObj: {fileID: 0}
+  AbilitiesManagerObj: {fileID: 776727745}
   TransparencyValue: 0
   ActiveEnemyAbility: 0
   SelectedEnemyID: -1
@@ -785,7 +775,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerManagerObj: {fileID: 930634249}
-  EnemyManagerObj: {fileID: 0}
+  EnemyManagerObj: {fileID: 299472009}
   ButtonManagerObj: {fileID: 1017858233}
   AbilitiesList:
   - AbilityName: Attack
@@ -2282,11 +2272,6 @@ Transform:
   m_Father: {fileID: 320947074}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1855982872 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5535175895963101636, guid: ace62a0ab41b0244da943f6c93e2e988, type: 3}
-  m_PrefabInstance: {fileID: 69389155}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1855982873 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5535175895963101637, guid: ace62a0ab41b0244da943f6c93e2e988, type: 3}
