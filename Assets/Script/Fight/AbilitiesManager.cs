@@ -99,9 +99,9 @@ public class AbilitiesManager : MonoBehaviour
         UpdatedEgo = 0;
 
         int abilityID = EnemyManagerObj.GetComponent<EnemyManager>().ActiveEnemyAbility;
-
         int charid = EnemyManagerObj.GetComponent<EnemyManager>().SelectedEnemyID;
-        CharacterCombatAttributes character = EnemyManagerObj.GetComponent<EnemyManager>().ListEnnemy[charid];
+
+        CharacterCombatAttributes character = EnemyManagerObj.GetComponent<EnemyManager>().ListEnemies[charid];
 
         if (EnemyManagerObj.GetComponent<EnemyManager>().SelectedEnemyID >= 0)
         {
@@ -127,11 +127,10 @@ public class AbilitiesManager : MonoBehaviour
                 UpdatedEgo = character.Eloquence + GetAbilitiesByID(abilityID).EgoChange;
             else
                 UpdatedEgo = GetAbilitiesByID(abilityID).EgoChange;
-
-
         }
-            Debug.Log(UpdatedHP);
-            Debug.Log(UpdatedEgo);
+
+        
+        //Debug.Log(UpdatedEgo);
     }
 
 

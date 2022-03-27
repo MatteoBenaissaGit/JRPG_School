@@ -28,6 +28,8 @@ public class PlayerManager : MonoBehaviour
     public int SelectedCharacterID = -1;
     int _selectedButtons;
 
+    [HideInInspector] public List<int> TargetableAlliesList = new List<int>();
+
     [Header("---Debug---")]
     [SerializeField] private Logger _logger;
 
@@ -37,12 +39,13 @@ public class PlayerManager : MonoBehaviour
         // _logger.Log($"HP of {this.name} : {Character.HP}", this);
 
         UpdateCharSprite();
-        _currentMode = SelectionMode.AllyPick;
+        _currentMode = SelectionMode.CheckIfNewRound;
         StockStartEgo();
 
         foreach (var item in ListChars)
         {
             _numberOfAllies++;
+            TargetableAlliesList.Add(_numberOfAllies - 1);
         }
     }
     public void Update()
@@ -73,7 +76,8 @@ public class PlayerManager : MonoBehaviour
 
                 if (characterPicked != null)
                 {
-                    if (_currentMode == SelectionMode.AllyPick)
+                    if (_currentMode == SelectionMode.AllyPick && ListChars[characterPicked.CharacterIndex].HasPlayed == false &&
+                        characterPicked.IsAlly == true)
                     {
                         for (int i = 0; i < ListChars.Count; i++)
                         {
@@ -154,14 +158,14 @@ public class PlayerManager : MonoBehaviour
             updatedEgo = updatedEgo * 2;
         }
 
-        if (EnemyManagerObj.GetComponent<EnemyManager>().ListEnnemy[Defender.CharacterIndex].Ego > 
-            EnemyManagerObj.GetComponent<EnemyManager>().ListEnnemy[Defender.CharacterIndex].StartEgo / 2)
+        if (EnemyManagerObj.GetComponent<EnemyManager>().ListEnemies[Defender.CharacterIndex].Ego > 
+            EnemyManagerObj.GetComponent<EnemyManager>().ListEnemies[Defender.CharacterIndex].StartEgo / 2)
         {
             updatedHP = updatedHP / 2;
         }
 
-        EnemyManagerObj.GetComponent<EnemyManager>().ListEnnemy[Defender.CharacterIndex].HP -= updatedHP;
-        EnemyManagerObj.GetComponent<EnemyManager>().ListEnnemy[Defender.CharacterIndex].Ego -= updatedEgo;
+        EnemyManagerObj.GetComponent<EnemyManager>().ListEnemies[Defender.CharacterIndex].HP -= updatedHP;
+        EnemyManagerObj.GetComponent<EnemyManager>().ListEnemies[Defender.CharacterIndex].Ego -= updatedEgo;
 
         for (int i = 0; i < ListChars.Count; i++)
         {
@@ -203,13 +207,6 @@ public class PlayerManager : MonoBehaviour
             ListChars[i].StartEgo = ListChars[i].Ego;
         }
     }
-    public void StockNumberOfAllies()
-    {
-        for (int i = 0; i < ListChars.Count; i++)
-        {
-            _numberOfAllies++;
-        }
-    }
 
     public void NewRound()
     {
@@ -238,7 +235,14 @@ public class PlayerManager : MonoBehaviour
         ListChars[SelectedCharacterID].HasPlayed = true;
         _numberOfPlayedAllies++;
 
-        _currentMode = SelectionMode.CheckIfNewRound;
+        _currentMode = SelectionMode.Waiting;
 
+        EnemyManagerObj.GetComponent<EnemyManager>().EnemiesTurnToPlay();
+
+    }
+
+    public void PlayersTurnToPlay()
+    {
+        _currentMode = SelectionMode.CheckIfNewRound;
     }
 }
