@@ -370,7 +370,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5535175895963101639, guid: ace62a0ab41b0244da943f6c93e2e988, type: 3}
       propertyPath: m_Offset.x
-      value: 0.1835466
+      value: -0.04
       objectReference: {fileID: 0}
     - target: {fileID: 5535175895963101639, guid: ace62a0ab41b0244da943f6c93e2e988, type: 3}
       propertyPath: m_Offset.y
@@ -601,14 +601,13 @@ MonoBehaviour:
     HasPlayed: 0
     CombatSprite: {fileID: 0}
     CombatSpriteRenderer: {fileID: 0}
-    AbilityIDs: 01000000
+    AbilityIDs: 02000000
     StartEgo: 0
   _logger: {fileID: 0}
   AbilitiesManagerObj: {fileID: 776727745}
   PlayerManagerObj: {fileID: 930634249}
   TransparencyValue: 0
   ActiveEnemyAbility: 0
-  _enemyPickerList: 
   TargetableEnemiesList: 
   SelectedEnemyID: -1
 --- !u!4 &299472011
@@ -1087,7 +1086,7 @@ MonoBehaviour:
   AbilitiesList:
   - AbilityName: Attack
     ButtonIndex: 0
-    HealthChange: 75
+    HealthChange: 20
     EgoChange: 0
     CanTargetAlly: 0
     CanTargetHimself: 0
@@ -1108,6 +1107,15 @@ MonoBehaviour:
     HealthChange: 25
     EgoChange: 0
     CanTargetAlly: 1
+    CanTargetHimself: 0
+    CanStun: 0
+    ButtonSprite: {fileID: 21300000, guid: 7060b908fdc48b44aa41b45a6219e678, type: 3}
+    AbilityIndex: 0
+  - AbilityName: MEGA COLOSSAL DAMAGE
+    ButtonIndex: 2
+    HealthChange: 200
+    EgoChange: 0
+    CanTargetAlly: 0
     CanTargetHimself: 0
     CanStun: 0
     ButtonSprite: {fileID: 21300000, guid: 7060b908fdc48b44aa41b45a6219e678, type: 3}
@@ -1178,7 +1186,7 @@ MonoBehaviour:
     Ego: 50
     Power: 20
     Eloquence: 20
-    CriticalPercentage: 15
+    CriticalPercentage: 100
     IsStuned: 0
     IsDead: 0
     HasPlayed: 0
