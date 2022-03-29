@@ -15,13 +15,34 @@ public class CharaCompetenceSwitch : MonoBehaviour
     [Header("Character Parent Referencing")]
     [SerializeField] private CharactersParametersList _characterParent;
 
+    private List<GameObject> _iconsList = new List<GameObject>();
+
     private void OnEnable()
     {
+        ShowCharacterCompetence(0);
+        for (int i = 0; i < _iconsList.Count; i++)
+        {
+            Destroy(_iconsList[i]);
+        }
+        _iconsList.Clear();
         for (int i = 0; i < _charactersCompetenceList.Count; i++)
         {
             GameObject iconPrefab = Instantiate(_iconCharacterPrefab, _iconCharacterLayout);
-            iconPrefab.GetComponent<Image>().sprite = _characterParent.CharactersListing[i].Icon;
-            iconPrefab.GetComponent<TextMeshProUGUI>().name = _characterParent.CharactersListing[i].Name;
+            _iconsList.Add(iconPrefab);
+            iconPrefab.GetComponent<CharaCompetenceIcon>().Icon.sprite = _characterParent.CharactersListing[i].Icon;
+            iconPrefab.GetComponent<CharaCompetenceIcon>().Name.text = _characterParent.CharactersListing[i].Name;
+        }
+    }
+
+    private void Update()
+    {
+        for (int i = 0; i < _charactersCompetenceList.Count; i++)
+        {
+            if (_iconsList[i].GetComponent<CharaCompetenceIcon>().IsClicked)
+            {
+                ShowCharacterCompetence(i);
+                _iconsList[i].GetComponent<CharaCompetenceIcon>().IsClicked = false;
+            }
         }
     }
 
