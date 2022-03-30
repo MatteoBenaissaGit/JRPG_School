@@ -5,7 +5,6 @@ using UnityEngine;
 public class Abilities
 {
     public string AbilityName;
-    public int ButtonIndex;
     public int HealthChange;
     public int EgoChange;
     public bool CanTargetAlly;

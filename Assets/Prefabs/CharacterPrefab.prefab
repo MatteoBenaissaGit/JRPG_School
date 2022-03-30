@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5535175895963101639}
   - component: {fileID: -7945216868215254280}
   m_Layer: 0
-  m_Name: CharacterAlly
+  m_Name: CharacterPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

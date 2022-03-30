@@ -57,34 +57,29 @@ public class AbilitiesManager : MonoBehaviour
         {
             int charid = PlayerManagerObj.GetComponent<PlayerManager>().SelectedCharacterID;
             CharacterCombatAttributes character = PlayerManagerObj.GetComponent<PlayerManager>().ListChars[charid];
+            int currentBtton = ButtonManagerObj.GetComponent<ButtonManager>().ButtonCurrent;
 
-            foreach (int abilityID in character.AbilityIDs)
+            UpdatedCanTargetAlly = AbilitiesList[character.AbilityIDs[currentBtton]].CanTargetAlly;
+            UpdatedCanTargetHimself = AbilitiesList[character.AbilityIDs[currentBtton]].CanTargetHimself;
+            UpdatedCanStun = AbilitiesList[character.AbilityIDs[currentBtton]].CanStun;
+
+            if (UpdatedCanTargetHimself == true || UpdatedCanTargetAlly == true)
             {
-                if (ButtonManagerObj.GetComponent<ButtonManager>().ButtonCurrent == GetAbilitiesByID(abilityID).ButtonIndex)
-                {
-                    UpdatedCanTargetAlly = GetAbilitiesByID(abilityID).CanTargetAlly;
-                    UpdatedCanTargetHimself = GetAbilitiesByID(abilityID).CanTargetHimself;
-                    UpdatedCanStun = GetAbilitiesByID(abilityID).CanStun;
+                UpdatedHP = AbilitiesList[character.AbilityIDs[currentBtton]].HealthChange;
+                UpdatedEgo = AbilitiesList[character.AbilityIDs[currentBtton]].EgoChange;
+            }
+            else
+            {
+                if (AbilitiesList[character.AbilityIDs[currentBtton]].HealthChange != 0)
+                    UpdatedHP = character.Power + AbilitiesList[character.AbilityIDs[currentBtton]].HealthChange;
+                else
+                    UpdatedHP = AbilitiesList[character.AbilityIDs[currentBtton]].HealthChange;
 
-                    if (UpdatedCanTargetHimself == true || UpdatedCanTargetAlly == true)
-                    {
-                        UpdatedHP = GetAbilitiesByID(abilityID).HealthChange;
-                        UpdatedEgo = GetAbilitiesByID(abilityID).EgoChange;
-                    }
-                    else
-                    {
-                        if (GetAbilitiesByID(abilityID).HealthChange != 0)
-                            UpdatedHP = character.Power + GetAbilitiesByID(abilityID).HealthChange;
-                        else
-                            UpdatedHP = GetAbilitiesByID(abilityID).HealthChange;
+                if (AbilitiesList[character.AbilityIDs[currentBtton]].EgoChange != 0)
+                    UpdatedEgo = character.Eloquence + AbilitiesList[character.AbilityIDs[currentBtton]].EgoChange;
+                else
+                    UpdatedEgo = AbilitiesList[character.AbilityIDs[currentBtton]].EgoChange;
 
-                        if (GetAbilitiesByID(abilityID).EgoChange != 0)
-                            UpdatedEgo = character.Eloquence + GetAbilitiesByID(abilityID).EgoChange;
-                        else
-                            UpdatedEgo = GetAbilitiesByID(abilityID).EgoChange;
-
-                    }
-                }
             }
         }
 

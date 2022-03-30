@@ -10,9 +10,9 @@ public class EnemyManager : MonoBehaviour
 
     enum SelectionMode
     {
+        CheckIfNewRound,
         EnemyPick,
         Attack,
-        CheckIfNewRound,
         Waiting
     }
 
@@ -36,6 +36,8 @@ public class EnemyManager : MonoBehaviour
     public int SelectedEnemyID = -1;
     int _selectedEnemyIndex = -1;
 
+    float _timeToWait;
+
     private void Start()
     {
         //Character = ListChars[_selectedPlayerIndex];
@@ -57,31 +59,24 @@ public class EnemyManager : MonoBehaviour
 
     public void Update()
     {
+
+        _timeToWait -= Time.deltaTime;
+
+        if (_timeToWait > 0)
+            return;
+
         if (_currentMode == SelectionMode.CheckIfNewRound)
         {
-            if (_numberOfPlayedEnemies == _numberOfPlayableEnemies)
-            {
-                NewRound();
-            }
-            else
-                _currentMode = SelectionMode.EnemyPick;
+            UpdateCheckRound();
         }
 
-        if (_currentMode == SelectionMode.EnemyPick)
+        else if (_currentMode == SelectionMode.EnemyPick)
         {
-            int picker = Random.Range(0, _enemyPickerList.Count);
-            _selectedEnemyIndex = picker;
-            SelectedEnemyID = _enemyPickerList[picker];
-
-            Debug.Log(SelectedEnemyID);
-            CharacterUI characterPicked = ListEnemies[SelectedEnemyID].CharacterObject.GetComponent<CharacterUI>();
-
-            _currentMode = SelectionMode.Attack;
-
+            UpdateEnemyPick();
         }
-
-        if (_currentMode == SelectionMode.Attack)
+        else if (_currentMode == SelectionMode.Attack)
         {
+            Debug.Log("lol jatak");
 
             int abilityPicker = Random.Range(0, ListEnemies[SelectedEnemyID].AbilityIDs.Count);
 
@@ -134,6 +129,33 @@ public class EnemyManager : MonoBehaviour
 
         }
 
+    }
+
+    private void UpdateEnemyPick()
+    {
+        int picker = Random.Range(0, _enemyPickerList.Count);
+        _selectedEnemyIndex = picker;
+        SelectedEnemyID = _enemyPickerList[picker];
+
+        CharacterUI characterPicked = ListEnemies[SelectedEnemyID].CharacterObject.GetComponent<CharacterUI>();
+
+        _timeToWait = 1;
+
+
+
+        Debug.Log(SelectedEnemyID);
+
+        _currentMode = SelectionMode.Attack;
+    }
+
+    private void UpdateCheckRound()
+    {
+        if (_numberOfPlayedEnemies == _numberOfPlayableEnemies)
+        {
+            NewRound();
+        }
+        else
+            _currentMode = SelectionMode.EnemyPick;
     }
 
     public void StockStartEgo()
@@ -244,4 +266,5 @@ public class EnemyManager : MonoBehaviour
     {
         _currentMode = SelectionMode.CheckIfNewRound;
     }
+
 }
