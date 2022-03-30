@@ -53,7 +53,9 @@ public class CharaCompetenceSwitch : MonoBehaviour
             if (i != characterNumber)
                 _charactersCompetenceList[i].SetActive(false);
             else
+            {
                 _charactersCompetenceList[i].SetActive(true);
+            }
         }
     }
 }

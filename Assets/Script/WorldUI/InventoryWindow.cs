@@ -8,6 +8,7 @@ public class InventoryWindow : MonoBehaviour
 {
     [Header("Inventory Slot List")]
     [HideInInspector] public List<GameObject> _slotsbackground;
+    [HideInInspector] public List<GameObject> _items;
     [HideInInspector] public List<bool> _slotsfull;
     public int NumberOfSlots;
     public List<ItemSlot> ItemInSlotList;
@@ -16,6 +17,8 @@ public class InventoryWindow : MonoBehaviour
     [SerializeField] private GameObject _inventoryItemPrefab;
     [SerializeField] private GameObject _itemPrefab;
     [SerializeField] private GameObject _slotBackgroundPrefab;
+    [SerializeField] private GameObject _inventoryItemGrid;
+    [SerializeField] private GameObject _inventoryGrid;
     [Header("RightClick Referencing")]
     [SerializeField] private MenuRightClic _menuRightClick;
     [Header("ItemDrop Referencing")]
@@ -52,15 +55,18 @@ public class InventoryWindow : MonoBehaviour
         _logger.Log("Cleaning inventory", this);
         for (int i = 0; i < _slotsbackground.Count; i++)
             GameObject.Destroy(_slotsbackground[i]);
+        for (int i = 0; i < _items.Count; i++)
+            GameObject.Destroy(_items[i]);
         _slotsbackground.Clear();
         _slotsfull.Clear();
+        _items.Clear();
     }
 
     private void CreateSlots()
     {
         for (int i = 0; i < NumberOfSlots; i++)
         {
-            _slotsbackground.Add(Instantiate(_slotBackgroundPrefab, transform));
+            _slotsbackground.Add(Instantiate(_slotBackgroundPrefab, _inventoryGrid.transform));
             _slotsfull.Add(false);
         }
     }
@@ -73,13 +79,15 @@ public class InventoryWindow : MonoBehaviour
             if (_characterInventory.ItemList[i].NumberOfItem > 0)
             {
                 _logger.Log($"Showing {_characterInventory.ItemList[i].NumberOfItem} {_characterInventory.ItemList[i].Item} in Slot {CheckFirstEmptySlot()}", this);
-                GameObject itemprefab = Instantiate(_inventoryItemPrefab, _slotsbackground[CheckFirstEmptySlot()].transform);
+                GameObject itemprefab = Instantiate(_inventoryItemPrefab, _inventoryItemGrid.transform);
                 itemprefab.GetComponent<ItemSlot>().Image.sprite = _characterInventory.ItemList[i].InventorySprite;
                 itemprefab.GetComponent<ItemSlot>().Description = _characterInventory.ItemList[i].Description;
                 itemprefab.GetComponent<ItemSlot>().Number.text = _characterInventory.ItemList[i].NumberOfItem.ToString();
                 itemprefab.GetComponent<ItemSlot>().IsUsable= _characterInventory.ItemList[i].IsUsable;
                 itemprefab.GetComponent<ItemSlot>().Item = (ItemSlot.Items)i;
+                itemprefab.transform.position = _slotsbackground[CheckFirstEmptySlot()].transform.position;
                 ItemInSlotList.Add(itemprefab.GetComponent<ItemSlot>());
+                _items.Add(itemprefab);
                 _slotsfull[CheckFirstEmptySlot()] = true;
             }
         }
