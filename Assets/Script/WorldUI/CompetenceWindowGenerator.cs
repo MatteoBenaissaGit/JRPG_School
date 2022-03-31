@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 [Serializable]
@@ -21,6 +22,8 @@ public class RowsOfCompetences
 }
 public class CompetenceWindowGenerator : MonoBehaviour
 {
+    [SerializeField] private int _characterNumber;
+    [SerializeField] private CharactersParametersList _charactersParent;
     [Header("Logger")]
     [SerializeField] private Logger _logger;
     [Header("Competence Icon Prefab")]
@@ -33,8 +36,23 @@ public class CompetenceWindowGenerator : MonoBehaviour
 
     private List<GameObject> _subLayoutList = new List<GameObject>();
     private List<GameObject> _competencesList = new List<GameObject>();
-    private void Awake()
+
+    private void OnEnable()
     {
+        GenerateCompetences();
+    }
+    public void GenerateCompetences()
+    {      
+        for (int i = 0; i < _competencesList.Count; i++)
+        {
+            Destroy(_competencesList[i]);
+        }
+        for (int i = 0; i < _subLayoutList.Count; i++)
+        {
+            Destroy(_subLayoutList[i]);
+        }
+        _competencesList.Clear();
+        _subLayoutList.Clear();
         for (int z = 0; z < _rowsOfCompetences.Count; z++)
         {
             GameObject layout = Instantiate(_subHorizontalLayout, this.transform);
@@ -45,8 +63,53 @@ public class CompetenceWindowGenerator : MonoBehaviour
                 GameObject competence = Instantiate(_competenceIconPrefab, layout.transform);
                 competence.GetComponent<CompetenceIcon>().Icon.sprite = _rowsOfCompetences[z].Competences[i].Icon;
                 competence.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
+                competence.GetComponent<CompetenceIcon>().Name.text = _rowsOfCompetences[z].Competences[i].Name;
+                competence.GetComponent<CompetenceIcon>().Description.text = _rowsOfCompetences[z].Competences[i].Description;
+                competence.GetComponent<CompetenceIcon>().LockedText.GetComponent<TextMeshProUGUI>().text = $"level to unlock : {_rowsOfCompetences[z].Competences[i].LevelToUnlock}";
+                competence.GetComponent<CompetenceIcon>().EgoText.GetComponent<TextMeshProUGUI>().text = $"+ {_rowsOfCompetences[z].Competences[i].EgoGain}";
+                competence.GetComponent<CompetenceIcon>().EloquenceText.GetComponent<TextMeshProUGUI>().text = $"+ {_rowsOfCompetences[z].Competences[i].EloquenceGain}";
+                competence.GetComponent<CompetenceIcon>().PuissanceText.GetComponent<TextMeshProUGUI>().text = $"+ {_rowsOfCompetences[z].Competences[i].PuissanceGain}";
+
+                //locked or unlocked              
+                if (_charactersParent.CharactersListing[_characterNumber - 1].Level >= _rowsOfCompetences[z].Competences[i].LevelToUnlock)
+                {
+                    competence.GetComponent<CompetenceIcon>().LockedText.SetActive(false);
+                    competence.GetComponent<CompetenceIcon>().UnlockedText.SetActive(true);
+                    competence.GetComponent<CompetenceIcon>().Icon.color = new Color32(255, 255, 255, 255);
+                    _charactersParent.CharactersListing[_characterNumber].Ego += _rowsOfCompetences[z].Competences[i].EgoGain;
+                    _charactersParent.CharactersListing[_characterNumber].Eloquence += _rowsOfCompetences[z].Competences[i].EloquenceGain;
+                    _charactersParent.CharactersListing[_characterNumber].Puissance += _rowsOfCompetences[z].Competences[i].PuissanceGain;
+                }
                 _competencesList.Add(competence);
+                //lines
+                if (_rowsOfCompetences.Count > z+1)
+                {
+                    switch (_rowsOfCompetences[z + 1].Competences.Count)
+                    {
+                        case 1:
+                            if (_rowsOfCompetences[z].Competences.Count == 1)
+                            {
+                                competence.GetComponent<CompetenceIcon>().SingleLine.SetActive(true);
+                            }
+                            else
+                            {
+                                if (i == 0)
+                                    competence.GetComponent<CompetenceIcon>().RightLine.SetActive(true);
+                                if (i == 1)
+                                    competence.GetComponent<CompetenceIcon>().LeftLine.SetActive(true);
+                            }
+                            break;
+                        case 2:
+                            if (_rowsOfCompetences[z].Competences.Count == 1)
+                                competence.GetComponent<CompetenceIcon>().DoubleLine.SetActive(true);
+                            else
+                            {
+                                competence.GetComponent<CompetenceIcon>().SingleLine.SetActive(true);
+                            }
+                            break;
+                    }
+                }
             }
-        }   
+        }
     }
 }

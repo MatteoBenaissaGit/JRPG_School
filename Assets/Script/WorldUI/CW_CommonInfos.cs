@@ -61,6 +61,7 @@ public class CW_CommonInfos : MonoBehaviour
         {
             int animatorNumber = SpriteChangeNumberGetter(i);
             CharactersInfosList[i].CharactersAnim = CharactersAnims[animatorNumber];
+            UpdateCharacterCommonInfos(i);
         }
     }
     private int SpriteChangeNumberGetter(int i)
