@@ -46,7 +46,7 @@ public class EnemyManager : MonoBehaviour
         //UpdateCharSprite();
         _currentMode = SelectionMode.Waiting;
 
-        StockStartEgo();
+        StockStartStats();
 
         foreach (var item in ListEnemies)
         {
@@ -76,52 +76,7 @@ public class EnemyManager : MonoBehaviour
         }
         else if (_currentMode == SelectionMode.Attack)
         {
-            Debug.Log("lol jatak");
-
-            int abilityPicker = Random.Range(0, ListEnemies[SelectedEnemyID].AbilityIDs.Count);
-
-            ActiveEnemyAbility = ListEnemies[SelectedEnemyID].AbilityIDs[abilityPicker];
-            AbilitiesManagerObj.GetComponent<AbilitiesManager>().NewActiveEnemyStats();
-
-
-            if (AbilitiesManagerObj.GetComponent<AbilitiesManager>().UpdatedCanTargetHimself == true &&
-                AbilitiesManagerObj.GetComponent<AbilitiesManager>().UpdatedCanTargetAlly == true)
-            {
-                int picker = Random.Range(0, TargetableEnemiesList.Count);
-                int characterBuffed = TargetableEnemiesList[picker];
-
-                CharacterUI characterPicked = ListEnemies[characterBuffed].CharacterObject.GetComponent<CharacterUI>();
-                Buff(characterPicked);
-            }
-
-            else
-            {
-                if (AbilitiesManagerObj.GetComponent<AbilitiesManager>().UpdatedCanTargetHimself == true)
-                {
-                    CharacterUI characterPicked = ListEnemies[SelectedEnemyID].CharacterObject.GetComponent<CharacterUI>();
-                    Buff(characterPicked);
-                }
-                if (AbilitiesManagerObj.GetComponent<AbilitiesManager>().UpdatedCanTargetAlly == true)
-                {
-                    List<int> NewBuffList = new List<int>(TargetableEnemiesList);
-                    NewBuffList.RemoveAt(SelectedEnemyID);
-                    int picker = Random.Range(0, NewBuffList.Count);
-                    int characterBuffed = NewBuffList[picker];
-
-                    CharacterUI characterPicked = ListEnemies[characterBuffed].CharacterObject.GetComponent<CharacterUI>();
-                    Buff(characterPicked);
-                }
-            }
-
-            if (AbilitiesManagerObj.GetComponent<AbilitiesManager>().UpdatedCanTargetHimself == false &&
-                AbilitiesManagerObj.GetComponent<AbilitiesManager>().UpdatedCanTargetAlly == false)
-            {
-                int picker = Random.Range(0, PlayerManagerObj.GetComponent<PlayerManager>().TargetableAlliesList.Count);
-                int playerAttackedID = PlayerManagerObj.GetComponent<PlayerManager>().TargetableAlliesList[picker];
-
-                CharacterUI characterPicked = PlayerManagerObj.GetComponent<PlayerManager>().ListChars[playerAttackedID].CharacterObject.GetComponent<CharacterUI>();
-                AttackOnPlayer(characterPicked);
-            }
+            UpdateAttack();
         }
 
         if (_currentMode == SelectionMode.Waiting)
@@ -158,11 +113,12 @@ public class EnemyManager : MonoBehaviour
             _currentMode = SelectionMode.EnemyPick;
     }
 
-    public void StockStartEgo()
+    public void StockStartStats()
     {
         for (int i = 0; i < ListEnemies.Count; i++)
         {
             ListEnemies[i].StartEgo = ListEnemies[i].Ego;
+            ListEnemies[i].StartHP = ListEnemies[i].HP;
         }
     }
 
@@ -211,6 +167,13 @@ public class EnemyManager : MonoBehaviour
 
         ListEnemies[Defender.CharacterIndex].HP += updatedHP;
         ListEnemies[Defender.CharacterIndex].Ego += updatedEgo;
+
+        if (ListEnemies[Defender.CharacterIndex].Ego > ListEnemies[Defender.CharacterIndex].StartEgo)
+            ListEnemies[Defender.CharacterIndex].Ego = ListEnemies[Defender.CharacterIndex].StartEgo;
+
+        if (ListEnemies[Defender.CharacterIndex].HP > ListEnemies[Defender.CharacterIndex].StartHP)
+            ListEnemies[Defender.CharacterIndex].HP = ListEnemies[Defender.CharacterIndex].StartHP;
+
 
         for (int i = 0; i < ListEnemies.Count; i++)
         {
@@ -265,6 +228,56 @@ public class EnemyManager : MonoBehaviour
     public void EnemiesTurnToPlay()
     {
         _currentMode = SelectionMode.CheckIfNewRound;
+    }
+
+    public void UpdateAttack()
+    {
+        Debug.Log("lol jatak");
+
+        int abilityPicker = Random.Range(0, ListEnemies[SelectedEnemyID].AbilityIDs.Count);
+
+        ActiveEnemyAbility = ListEnemies[SelectedEnemyID].AbilityIDs[abilityPicker];
+        AbilitiesManagerObj.GetComponent<AbilitiesManager>().NewActiveEnemyStats();
+
+
+        if (AbilitiesManagerObj.GetComponent<AbilitiesManager>().UpdatedCanTargetHimself == true &&
+            AbilitiesManagerObj.GetComponent<AbilitiesManager>().UpdatedCanTargetAlly == true)
+        {
+            int picker = Random.Range(0, TargetableEnemiesList.Count);
+            int characterBuffed = TargetableEnemiesList[picker];
+
+            CharacterUI characterPicked = ListEnemies[characterBuffed].CharacterObject.GetComponent<CharacterUI>();
+            Buff(characterPicked);
+        }
+
+        else
+        {
+            if (AbilitiesManagerObj.GetComponent<AbilitiesManager>().UpdatedCanTargetHimself == true)
+            {
+                CharacterUI characterPicked = ListEnemies[SelectedEnemyID].CharacterObject.GetComponent<CharacterUI>();
+                Buff(characterPicked);
+            }
+            if (AbilitiesManagerObj.GetComponent<AbilitiesManager>().UpdatedCanTargetAlly == true)
+            {
+                List<int> NewBuffList = new List<int>(TargetableEnemiesList);
+                NewBuffList.RemoveAt(SelectedEnemyID);
+                int picker = Random.Range(0, NewBuffList.Count);
+                int characterBuffed = NewBuffList[picker];
+
+                CharacterUI characterPicked = ListEnemies[characterBuffed].CharacterObject.GetComponent<CharacterUI>();
+                Buff(characterPicked);
+            }
+        }
+
+        if (AbilitiesManagerObj.GetComponent<AbilitiesManager>().UpdatedCanTargetHimself == false &&
+            AbilitiesManagerObj.GetComponent<AbilitiesManager>().UpdatedCanTargetAlly == false)
+        {
+            int picker = Random.Range(0, PlayerManagerObj.GetComponent<PlayerManager>().TargetableAlliesList.Count);
+            int playerAttackedID = PlayerManagerObj.GetComponent<PlayerManager>().TargetableAlliesList[picker];
+
+            CharacterUI characterPicked = PlayerManagerObj.GetComponent<PlayerManager>().ListChars[playerAttackedID].CharacterObject.GetComponent<CharacterUI>();
+            AttackOnPlayer(characterPicked);
+        }
     }
 
 }

@@ -19,6 +19,7 @@ public class PlayerManager : MonoBehaviour
     public GameObject AbilitiesManagerObj;
     public GameObject ButtonManagerObj;
     public GameObject EnemyManagerObj;
+    Bars _healthBar;
 
     int _numberOfAllies = 0;
     int _numberOfPlayedAllies = 0;
@@ -40,7 +41,8 @@ public class PlayerManager : MonoBehaviour
 
         UpdateCharSprite();
         _currentMode = SelectionMode.CheckIfNewRound;
-        StockStartEgo();
+        StockStartStats();
+        SetBars();
 
         foreach (var item in ListChars)
         {
@@ -172,7 +174,7 @@ public class PlayerManager : MonoBehaviour
             ListChars[i].CharacterObject.GetComponent<CharacterUI>().UnOutline();
         }
 
-        ButtonManagerObj.GetComponent<ButtonManager>().ResetDefeultSprites();
+        ButtonManagerObj.GetComponent<ButtonManager>().ResetDefaultSprites();
         _currentMode = SelectionMode.AllyPick;
 
         EndOfTurn();
@@ -189,23 +191,24 @@ public class PlayerManager : MonoBehaviour
         ListChars[Defender.CharacterIndex].HP += updatedHP;
         ListChars[Defender.CharacterIndex].Ego += updatedEgo;
 
+        if (ListChars[Defender.CharacterIndex].Ego > ListChars[Defender.CharacterIndex].StartEgo)
+            ListChars[Defender.CharacterIndex].Ego = ListChars[Defender.CharacterIndex].StartEgo;
+
+        if (ListChars[Defender.CharacterIndex].HP > ListChars[Defender.CharacterIndex].StartHP)
+            ListChars[Defender.CharacterIndex].HP = ListChars[Defender.CharacterIndex].StartHP;
+
+        ListChars[Defender.CharacterIndex].CharaHealthBar.SetHealth(ListChars[Defender.CharacterIndex].HP);
+        ListChars[Defender.CharacterIndex].CharaEgoBar.SetHealth(ListChars[Defender.CharacterIndex].Ego);
+
         for (int i = 0; i < ListChars.Count; i++)
         {
             ListChars[i].CharacterObject.GetComponent<CharacterUI>().UnOutline();
         }
 
-        ButtonManagerObj.GetComponent<ButtonManager>().ResetDefeultSprites();
+        ButtonManagerObj.GetComponent<ButtonManager>().ResetDefaultSprites();
         _currentMode = SelectionMode.AllyPick;
 
         EndOfTurn();
-    }
-
-    public void StockStartEgo()
-    {
-        for (int i = 0; i < ListChars.Count; i++)
-        {
-            ListChars[i].StartEgo = ListChars[i].Ego;
-        }
     }
 
     public void NewRound()
@@ -244,5 +247,22 @@ public class PlayerManager : MonoBehaviour
     public void PlayersTurnToPlay()
     {
         _currentMode = SelectionMode.CheckIfNewRound;
+    }
+
+    public void StockStartStats()
+    {
+        for (int i = 0; i < ListChars.Count; i++)
+        {
+            ListChars[i].StartEgo = ListChars[i].Ego;
+            ListChars[i].StartHP = ListChars[i].HP;
+        }
+    }
+
+    public void SetBars()
+    {
+        for (int i = 0; i < ListChars.Count; i++)
+        {
+
+        }
     }
 }
