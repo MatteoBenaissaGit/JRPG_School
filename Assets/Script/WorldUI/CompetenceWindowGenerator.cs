@@ -66,16 +66,23 @@ public class CompetenceWindowGenerator : MonoBehaviour
                 competence.GetComponent<CompetenceIcon>().Name.text = _rowsOfCompetences[z].Competences[i].Name;
                 competence.GetComponent<CompetenceIcon>().Description.text = _rowsOfCompetences[z].Competences[i].Description;
                 competence.GetComponent<CompetenceIcon>().LockedText.GetComponent<TextMeshProUGUI>().text = $"level to unlock : {_rowsOfCompetences[z].Competences[i].LevelToUnlock}";
+                competence.GetComponent<CompetenceIcon>().EgoText.GetComponent<TextMeshProUGUI>().text = $"+ {_rowsOfCompetences[z].Competences[i].EgoGain}";
+                competence.GetComponent<CompetenceIcon>().EloquenceText.GetComponent<TextMeshProUGUI>().text = $"+ {_rowsOfCompetences[z].Competences[i].EloquenceGain}";
+                competence.GetComponent<CompetenceIcon>().PuissanceText.GetComponent<TextMeshProUGUI>().text = $"+ {_rowsOfCompetences[z].Competences[i].PuissanceGain}";
 
                 //locked or unlocked              
                 if (_charactersParent.CharactersListing[_characterNumber - 1].Level >= _rowsOfCompetences[z].Competences[i].LevelToUnlock)
                 {
                     competence.GetComponent<CompetenceIcon>().LockedText.SetActive(false);
                     competence.GetComponent<CompetenceIcon>().UnlockedText.SetActive(true);
+                    competence.GetComponent<CompetenceIcon>().Icon.color = new Color32(255, 255, 255, 255);
+                    _charactersParent.CharactersListing[_characterNumber].Ego += _rowsOfCompetences[z].Competences[i].EgoGain;
+                    _charactersParent.CharactersListing[_characterNumber].Eloquence += _rowsOfCompetences[z].Competences[i].EloquenceGain;
+                    _charactersParent.CharactersListing[_characterNumber].Puissance += _rowsOfCompetences[z].Competences[i].PuissanceGain;
                 }
                 _competencesList.Add(competence);
                 //lines
-                if (_rowsOfCompetences.Count >= z+1)
+                if (_rowsOfCompetences.Count > z+1)
                 {
                     switch (_rowsOfCompetences[z + 1].Competences.Count)
                     {
