@@ -13,6 +13,7 @@ public class EnemyManager : MonoBehaviour
         CheckIfNewRound,
         EnemyPick,
         Attack,
+        EndOfTurn,
         Waiting
     }
 
@@ -43,7 +44,7 @@ public class EnemyManager : MonoBehaviour
         //Character = ListChars[_selectedPlayerIndex];
         // _logger.Log($"HP of {this.name} : {Character.HP}", this);
 
-        //UpdateCharSprite();
+        UpdateCharSprite();
         _currentMode = SelectionMode.Waiting;
 
         StockStartStats();
@@ -78,6 +79,11 @@ public class EnemyManager : MonoBehaviour
         {
             UpdateAttack();
         }
+        else if (_currentMode == SelectionMode.EndOfTurn)
+        {
+            EndOfTurn();
+        }
+
 
         if (_currentMode == SelectionMode.Waiting)
         {
@@ -93,18 +99,16 @@ public class EnemyManager : MonoBehaviour
         SelectedEnemyID = _enemyPickerList[picker];
 
         CharacterUI characterPicked = ListEnemies[SelectedEnemyID].CharacterObject.GetComponent<CharacterUI>();
+        characterPicked.Outline();
 
         _timeToWait = 1;
-
-
-
-        Debug.Log(SelectedEnemyID);
 
         _currentMode = SelectionMode.Attack;
     }
 
     private void UpdateCheckRound()
     {
+        _timeToWait = 1;
         if (_numberOfPlayedEnemies == _numberOfPlayableEnemies)
         {
             NewRound();
@@ -137,27 +141,26 @@ public class EnemyManager : MonoBehaviour
 
         int picker = Random.Range(1, 100);
 
+        CharacterCombatAttributes targetedPlayer = PlayerManagerObj.GetComponent<PlayerManager>().ListChars[Defender.CharacterIndex];
+
         if (picker <= ListEnemies[SelectedEnemyID].CriticalPercentage)
         {
             updatedHP = updatedHP * 2;
             updatedEgo = updatedEgo * 2;
         }
 
-        if (PlayerManagerObj.GetComponent<PlayerManager>().ListChars[Defender.CharacterIndex].Ego >
-            PlayerManagerObj.GetComponent<PlayerManager>().ListChars[Defender.CharacterIndex].StartEgo / 2)
+        if (targetedPlayer.Ego > targetedPlayer.StartEgo / 2)
         {
             updatedHP = updatedHP / 2;
         }
 
-        PlayerManagerObj.GetComponent<PlayerManager>().ListChars[Defender.CharacterIndex].HP -= updatedHP;
-        PlayerManagerObj.GetComponent<PlayerManager>().ListChars[Defender.CharacterIndex].Ego -= updatedEgo;
+        targetedPlayer.HP -= updatedHP;
+        targetedPlayer.Ego -= updatedEgo;
+        targetedPlayer.CharaHealthBar.GetComponent<Bars>().SetHealth(targetedPlayer.HP);
+        targetedPlayer.CharaEgoBar.GetComponent<Bars>().SetHealth(targetedPlayer.Ego);
 
-        for (int i = 0; i < ListEnemies.Count; i++)
-        {
-            ListEnemies[i].CharacterObject.GetComponent<CharacterUI>().UnOutline();
-        }
-
-        EndOfTurn();
+        _timeToWait = 1;
+        _currentMode = SelectionMode.EndOfTurn;
     }
 
     public void Buff(CharacterUI Defender)
@@ -174,15 +177,8 @@ public class EnemyManager : MonoBehaviour
         if (ListEnemies[Defender.CharacterIndex].HP > ListEnemies[Defender.CharacterIndex].StartHP)
             ListEnemies[Defender.CharacterIndex].HP = ListEnemies[Defender.CharacterIndex].StartHP;
 
-
-        for (int i = 0; i < ListEnemies.Count; i++)
-        {
-            ListEnemies[i].CharacterObject.GetComponent<CharacterUI>().UnOutline();
-        }
-
-        _currentMode = SelectionMode.Waiting;
-
-        EndOfTurn();
+        _timeToWait = 1;
+        _currentMode = SelectionMode.EndOfTurn;
     }
 
     public void NewRound()
@@ -191,10 +187,10 @@ public class EnemyManager : MonoBehaviour
 
         for (int i = 0; i < ListEnemies.Count; i++)
         {
-            //Color newColor = ListEnemies[i].CombatSpriteRenderer.color;
-            //newColor.a = 1f;
+            Color newColor = ListEnemies[i].CombatSpriteRenderer.color;
+            newColor.a = 1f;
 
-            //ListEnemies[i].CombatSpriteRenderer.color = newColor;
+            ListEnemies[i].CombatSpriteRenderer.color = newColor;
 
             ListEnemies[i].HasPlayed = false;
             _numberOfPlayedEnemies--;
@@ -209,10 +205,15 @@ public class EnemyManager : MonoBehaviour
 
     public void EndOfTurn()
     {
-        //Color tempColor = ListEnemies[SelectedEnemyID].CombatSpriteRenderer.color;
-        //tempColor.a = TransparencyValue;
+        Color tempColor = ListEnemies[SelectedEnemyID].CombatSpriteRenderer.color;
+        tempColor.a = TransparencyValue;
 
-        //ListEnemies[SelectedEnemyID].CombatSpriteRenderer.color = tempColor;
+        ListEnemies[SelectedEnemyID].CombatSpriteRenderer.color = tempColor;
+
+        for (int i = 0; i < ListEnemies.Count; i++)
+        {
+            ListEnemies[i].CharacterObject.GetComponent<CharacterUI>().UnOutline();
+        }
 
         ListEnemies[SelectedEnemyID].HasPlayed = true;
         _numberOfPlayedEnemies++;
@@ -232,8 +233,6 @@ public class EnemyManager : MonoBehaviour
 
     public void UpdateAttack()
     {
-        Debug.Log("lol jatak");
-
         int abilityPicker = Random.Range(0, ListEnemies[SelectedEnemyID].AbilityIDs.Count);
 
         ActiveEnemyAbility = ListEnemies[SelectedEnemyID].AbilityIDs[abilityPicker];
@@ -279,5 +278,21 @@ public class EnemyManager : MonoBehaviour
             AttackOnPlayer(characterPicked);
         }
     }
+    public void StunEnemy(CharacterUI StunnedChara)
+    {
+        Color tempColor = ListEnemies[StunnedChara.CharacterIndex].CombatSpriteRenderer.color;
+        tempColor.a = TransparencyValue;
 
+        ListEnemies[StunnedChara.CharacterIndex].CombatSpriteRenderer.color = tempColor;
+
+        ListEnemies[StunnedChara.CharacterIndex].HasPlayed = true;
+        ListEnemies[StunnedChara.CharacterIndex].IsStuned = true;
+        _numberOfPlayedEnemies++;
+
+        for (int i = 0; i < _enemyPickerList.Count; i++)
+        {
+            if (StunnedChara.CharacterIndex == _enemyPickerList[i])
+                _enemyPickerList.RemoveAt(i);
+        }
+    }
 }

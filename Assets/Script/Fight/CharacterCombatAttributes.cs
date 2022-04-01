@@ -14,13 +14,13 @@ public class CharacterCombatAttributes
     public int Power;
     public int Eloquence;
     public int CriticalPercentage;
-    public bool IsStuned;
-    public bool IsDead;
-    public bool HasPlayed;
     public Sprite CombatSprite;
     public SpriteRenderer CombatSpriteRenderer;
+    public bool HasPlayed;
+    public bool IsStuned;
     public List<int> AbilityIDs;
     
+    [HideInInspector] public bool IsDead;
     [HideInInspector] public int StartEgo;
     [HideInInspector] public int StartHP;
 }

@@ -46,8 +46,8 @@ public class PlayerManager : MonoBehaviour
 
         foreach (var item in ListChars)
         {
+            TargetableAlliesList.Add(_numberOfAllies);
             _numberOfAllies++;
-            TargetableAlliesList.Add(_numberOfAllies - 1);
         }
     }
     public void Update()
@@ -169,6 +169,9 @@ public class PlayerManager : MonoBehaviour
         EnemyManagerObj.GetComponent<EnemyManager>().ListEnemies[Defender.CharacterIndex].HP -= updatedHP;
         EnemyManagerObj.GetComponent<EnemyManager>().ListEnemies[Defender.CharacterIndex].Ego -= updatedEgo;
 
+        if (AbilitiesManagerObj.GetComponent<AbilitiesManager>().UpdatedCanStun == true)
+            EnemyManagerObj.GetComponent<EnemyManager>().StunEnemy(Defender);
+
         for (int i = 0; i < ListChars.Count; i++)
         {
             ListChars[i].CharacterObject.GetComponent<CharacterUI>().UnOutline();
@@ -241,7 +244,6 @@ public class PlayerManager : MonoBehaviour
         _currentMode = SelectionMode.Waiting;
 
         EnemyManagerObj.GetComponent<EnemyManager>().EnemiesTurnToPlay();
-
     }
 
     public void PlayersTurnToPlay()
@@ -262,7 +264,13 @@ public class PlayerManager : MonoBehaviour
     {
         for (int i = 0; i < ListChars.Count; i++)
         {
-
+            ListChars[i].CharaHealthBar.GetComponent<Bars>().SetMaxHealth(ListChars[i].StartHP);
+            ListChars[i].CharaEgoBar.GetComponent<Bars>().SetMaxHealth(ListChars[i].StartEgo);
         }
+    }
+
+    public void StunPlayer(CharacterUI StunnedChara)
+    {
+
     }
 }
