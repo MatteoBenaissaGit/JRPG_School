@@ -9,6 +9,7 @@ public class CharaCompetenceSwitch : MonoBehaviour
 
     [Header("Characters Competence Windows List")] 
     [SerializeField] private List<GameObject> _charactersCompetenceList;
+    [SerializeField] private List<GameObject> _charactersFolder;
     [Header("Referencing")]
     [SerializeField] private Transform _iconCharacterLayout;
     [SerializeField] private GameObject _iconCharacterPrefab;
@@ -51,9 +52,13 @@ public class CharaCompetenceSwitch : MonoBehaviour
         for (int i = 0; i < _charactersCompetenceList.Count; i++)
         {
             if (i != characterNumber)
+            {
+                _charactersFolder[i].SetActive(false);
                 _charactersCompetenceList[i].SetActive(false);
+            }
             else
             {
+                _charactersFolder[i].SetActive(true);
                 _charactersCompetenceList[i].SetActive(true);
             }
         }

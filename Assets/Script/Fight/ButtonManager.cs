@@ -16,7 +16,7 @@ public class ButtonManager : MonoBehaviour
 
     private void Start()
     {
-        ResetDefeultSprites();
+        ResetDefaultSprites();
     }
 
     public void WhenButtonClicked()
@@ -25,7 +25,7 @@ public class ButtonManager : MonoBehaviour
         PlayerManagerObj.GetComponent<PlayerManager>().SetAttackMode();
     }
 
-    public void ResetDefeultSprites()
+    public void ResetDefaultSprites()
     {
         foreach (var button in AbilitiesButtons)
         {

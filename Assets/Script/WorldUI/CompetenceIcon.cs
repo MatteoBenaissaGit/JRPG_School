@@ -18,6 +18,10 @@ public class CompetenceIcon : MonoBehaviour
     public TextMeshProUGUI Description;
     public GameObject LockedText;
     public GameObject UnlockedText;
+    public TextMeshProUGUI EgoText;
+    public TextMeshProUGUI EloquenceText;
+    public TextMeshProUGUI PuissanceText;
+
 
     private void Start()
     {
