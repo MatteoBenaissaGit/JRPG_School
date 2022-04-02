@@ -33,7 +33,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: SideWalkAnim
-  m_Speed: 1
+  m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -8778663953966592526}
@@ -41,12 +41,12 @@ AnimatorState:
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
-  m_Mirror: 1
+  m_Mirror: 0
   m_SpeedParameterActive: 0
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: a51813e4d77e8054586069d9e4efa846, type: 2}
+  m_Motion: {fileID: 7400000, guid: b0c70330e321fcc4f85efc52dc3ebbca, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: Mirror
@@ -66,7 +66,7 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -101,7 +101,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 18771685b0283224493bc417e908c3b6, type: 2}
+  m_Motion: {fileID: 7400000, guid: 09399565f85e0a14ba38fd54c8f82afb, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: Mirror

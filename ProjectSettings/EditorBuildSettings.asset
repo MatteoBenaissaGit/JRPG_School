@@ -8,4 +8,16 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/Programming/MenuStart.unity
+    guid: bcea0ae8724fa0548b13f6755083454e
+  - enabled: 1
+    path: Assets/Scenes/Programming/Credits.unity
+    guid: 62f25eb3364da314398cefe72c08c9ea
+  - enabled: 1
+    path: Assets/Scenes/Programming/WorldProg.unity
+    guid: 976d84b8a99ace144a3233759e3e322f
+  - enabled: 1
+    path: Assets/Scenes/Programming/FightProg.unity
+    guid: 97c4b67f3fd8ba3499a5698a1d61e59a
   m_configObjects: {}

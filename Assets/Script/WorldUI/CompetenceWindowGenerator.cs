@@ -71,7 +71,7 @@ public class CompetenceWindowGenerator : MonoBehaviour
                 competence.GetComponent<CompetenceIcon>().PuissanceText.GetComponent<TextMeshProUGUI>().text = $"+ {_rowsOfCompetences[z].Competences[i].PuissanceGain}";
 
                 //locked or unlocked              
-                if (_charactersParent.CharactersListing[_characterNumber - 1].Level >= _rowsOfCompetences[z].Competences[i].LevelToUnlock)
+                if (_charactersParent.CharactersListing[_characterNumber].Level >= _rowsOfCompetences[z].Competences[i].LevelToUnlock)
                 {
                     competence.GetComponent<CompetenceIcon>().LockedText.SetActive(false);
                     competence.GetComponent<CompetenceIcon>().UnlockedText.SetActive(true);
