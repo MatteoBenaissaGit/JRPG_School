@@ -632,11 +632,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5535175895963101639, guid: ace62a0ab41b0244da943f6c93e2e988, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 0.87
+      value: 10.8
       objectReference: {fileID: 0}
     - target: {fileID: 5535175895963101639, guid: ace62a0ab41b0244da943f6c93e2e988, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 0.84
+      value: 10.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ace62a0ab41b0244da943f6c93e2e988, type: 3}
@@ -1127,47 +1127,56 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ListEnemies:
   - CharacterObject: {fileID: 1900002610}
+    CharaHealthBar: {fileID: 0}
+    CharaEgoBar: {fileID: 0}
     Name: A
     HP: 0
     Ego: 50
     Power: 0
     Eloquence: 0
     CriticalPercentage: 0
-    IsStuned: 0
-    IsDead: 0
-    HasPlayed: 0
     CombatSprite: {fileID: 0}
     CombatSpriteRenderer: {fileID: 0}
+    HasPlayed: 0
+    IsStuned: 0
     AbilityIDs: 00000000
+    IsDead: 0
     StartEgo: 0
+    StartHP: 0
   - CharacterObject: {fileID: 530944872}
+    CharaHealthBar: {fileID: 0}
+    CharaEgoBar: {fileID: 0}
     Name: B
     HP: 0
     Ego: 50
     Power: 0
     Eloquence: 0
     CriticalPercentage: 0
-    IsStuned: 0
-    IsDead: 0
-    HasPlayed: 0
     CombatSprite: {fileID: 0}
     CombatSpriteRenderer: {fileID: 0}
+    HasPlayed: 0
+    IsStuned: 0
     AbilityIDs: 01000000
+    IsDead: 0
     StartEgo: 0
+    StartHP: 0
   - CharacterObject: {fileID: 1258301439}
+    CharaHealthBar: {fileID: 0}
+    CharaEgoBar: {fileID: 0}
     Name: C
     HP: 0
     Ego: 50
     Power: 0
     Eloquence: 0
     CriticalPercentage: 0
-    IsStuned: 0
-    IsDead: 0
-    HasPlayed: 0
     CombatSprite: {fileID: 0}
     CombatSpriteRenderer: {fileID: 0}
+    HasPlayed: 0
+    IsStuned: 0
     AbilityIDs: 02000000
+    IsDead: 0
     StartEgo: 0
+    StartHP: 0
   _logger: {fileID: 0}
   AbilitiesManagerObj: {fileID: 1643480314}
   PlayerManagerObj: {fileID: 1556595131}
@@ -2089,33 +2098,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ListChars:
   - CharacterObject: {fileID: 351074022}
+    CharaHealthBar: {fileID: 0}
+    CharaEgoBar: {fileID: 0}
     Name: A
     HP: 50
     Ego: 50
     Power: 20
     Eloquence: 20
     CriticalPercentage: 100
-    IsStuned: 0
-    IsDead: 0
-    HasPlayed: 0
     CombatSprite: {fileID: 0}
     CombatSpriteRenderer: {fileID: 392970410}
+    HasPlayed: 0
+    IsStuned: 0
     AbilityIDs: 010000000000000002000000
+    IsDead: 0
     StartEgo: 0
+    StartHP: 0
   - CharacterObject: {fileID: 2049932628}
+    CharaHealthBar: {fileID: 0}
+    CharaEgoBar: {fileID: 0}
     Name: B
     HP: 0
     Ego: 0
     Power: 0
     Eloquence: 0
     CriticalPercentage: 0
-    IsStuned: 0
-    IsDead: 0
-    HasPlayed: 0
     CombatSprite: {fileID: 21300000, guid: 9d92017500f025645bf0766e11cfd5a0, type: 3}
     CombatSpriteRenderer: {fileID: 2049932632}
+    HasPlayed: 0
+    IsStuned: 0
     AbilityIDs: 000000000100000002000000
+    IsDead: 0
     StartEgo: 0
+    StartHP: 0
   AbilitiesManagerObj: {fileID: 1643480314}
   ButtonManagerObj: {fileID: 674648209}
   EnemyManagerObj: {fileID: 680540735}
@@ -2816,6 +2831,25 @@ SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 5535175895963101638, guid: ace62a0ab41b0244da943f6c93e2e988, type: 3}
   m_PrefabInstance: {fileID: 278678007}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &2049932633
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2049932628}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 03389d3180776ac4aa194a88e3b07e63, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2062260060 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5535175895963101636, guid: ace62a0ab41b0244da943f6c93e2e988, type: 3}
