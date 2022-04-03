@@ -7,11 +7,16 @@ public class ItemPrefab : MonoBehaviour
 {
     public enum ItemList //keep the same as ItemList in CharacterInventory
     {
-        sword = 0,
-        key = 1,
-        rule = 2,
-        shield = 3,
-        health_potion = 4
+        dictionnaire = 0,
+        monocle = 1,
+        pull_de_promo = 2,
+        telephone = 3,
+        mot_doux = 4,
+        mirroir = 5,
+        cosmetique = 6,
+        règle_en_métal = 7,
+        tazer = 8,
+        lampe_torche = 9,
     }
     [Header("Materials")]
     [SerializeField] private Material _materialOutline;

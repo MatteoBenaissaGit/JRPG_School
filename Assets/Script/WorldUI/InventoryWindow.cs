@@ -13,6 +13,7 @@ public class InventoryWindow : MonoBehaviour
     public int NumberOfSlots;
     public List<ItemSlot> ItemInSlotList;
     [Header("Inventory Referencing")]
+    [SerializeField] private CharactersParametersList _characterParametersList;
     [SerializeField] private CharacterInventory _characterInventory;
     [SerializeField] private GameObject _inventoryItemPrefab;
     [SerializeField] private GameObject _itemPrefab;
@@ -26,7 +27,7 @@ public class InventoryWindow : MonoBehaviour
     [SerializeField] private GameObject _character;
     [SerializeField] private GameObject _characterParent;
     [SerializeField] private DialogBox _dialogBox;
-    [SerializeField] [Range(0.1f,2f)] private float _distanceDrop;
+    [SerializeField] [Range(0.1f, 2f)] private float _distanceDrop;
 
     private int _itemRightClicked;
 
@@ -83,7 +84,7 @@ public class InventoryWindow : MonoBehaviour
                 itemprefab.GetComponent<ItemSlot>().Image.sprite = _characterInventory.ItemList[i].InventorySprite;
                 itemprefab.GetComponent<ItemSlot>().Description = _characterInventory.ItemList[i].Description;
                 itemprefab.GetComponent<ItemSlot>().Number.text = _characterInventory.ItemList[i].NumberOfItem.ToString();
-                itemprefab.GetComponent<ItemSlot>().IsUsable= _characterInventory.ItemList[i].IsUsable;
+                itemprefab.GetComponent<ItemSlot>().IsUsable = _characterInventory.ItemList[i].IsUsable;
                 itemprefab.GetComponent<ItemSlot>().Item = (ItemSlot.Items)i;
                 itemprefab.transform.position = _slotsbackground[CheckFirstEmptySlot()].transform.position;
                 ItemInSlotList.Add(itemprefab.GetComponent<ItemSlot>());
@@ -107,7 +108,7 @@ public class InventoryWindow : MonoBehaviour
     {
         for (int i = 0; i < ItemInSlotList.Count; i++)
         {
-            if (ItemInSlotList[i].IsRightClicked && (Input.GetMouseButtonDown(1)||Input.GetMouseButtonDown(0)))
+            if (ItemInSlotList[i].IsRightClicked && (Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(0)))
             {
                 _itemRightClicked = (int)ItemInSlotList[i].Item;
                 _logger.Log($"RightClick on {ItemInSlotList[i].Item} (item nb : {(int)ItemInSlotList[i].Item})", this);
@@ -155,5 +156,10 @@ public class InventoryWindow : MonoBehaviour
     public void ButtonThrowAll()
     {
         DropItem(_characterInventory.ItemList[_itemRightClicked].NumberOfItem, _itemRightClicked);
+    }
+    private void UseItem()
+    {
+        _characterParametersList.CharactersListing[0].ExperiencePoint += 20;
+        _characterInventory.ItemList[0].NumberOfItem--;
     }
 }

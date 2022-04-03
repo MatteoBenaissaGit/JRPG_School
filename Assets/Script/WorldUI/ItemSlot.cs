@@ -8,11 +8,16 @@ public class ItemSlot : MonoBehaviour
 {
     public enum Items //keep the same as in CharaceterInventory
     {
-        sword = 0,
-        key = 1,
-        rule = 2,
-        shield = 3,
-        health_potion = 4
+        dictionnaire = 0,
+        monocle = 1,
+        pull_de_promo = 2,
+        telephone = 3,
+        mot_doux = 4,
+        mirroir = 5,
+        cosmetique = 6,
+        règle_en_métal = 7,
+        tazer = 8,
+        lampe_torche = 9,
     }
     [Header("variables")]
     public Items Item;
