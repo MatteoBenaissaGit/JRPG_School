@@ -107,7 +107,7 @@ public class InventoryWindow : MonoBehaviour
     {
         for (int i = 0; i < ItemInSlotList.Count; i++)
         {
-            if (ItemInSlotList[i].IsRightClicked && (Input.GetMouseButtonDown(1)))
+            if (ItemInSlotList[i].IsRightClicked && (Input.GetMouseButtonDown(1)||Input.GetMouseButtonDown(0)))
             {
                 _itemRightClicked = (int)ItemInSlotList[i].Item;
                 _logger.Log($"RightClick on {ItemInSlotList[i].Item} (item nb : {(int)ItemInSlotList[i].Item})", this);

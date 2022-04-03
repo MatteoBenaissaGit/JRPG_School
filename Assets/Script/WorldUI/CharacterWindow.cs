@@ -12,6 +12,8 @@ public class CharacterWindow : MonoBehaviour
 
     [HideInInspector] public List<GameObject> CharacterTagWindowList;
 
+    private int _switchnumber = 0;
+
     private void OnEnable()
     {
         AddCharactersTagWindow();
@@ -54,6 +56,11 @@ public class CharacterWindow : MonoBehaviour
                 {
                     _character.SwitchToNextCharacter();
                     _cwCommonInfos.SwitchToNextCharacter();
+                    if (_switchnumber < 2)
+                        _switchnumber++;
+                    else
+                        _switchnumber = 0;
+
                 }
                 CharacterTagWindowList[i].GetComponent<CharacterTagWindow>().IsLeader = false;
                 AddCharactersTagWindow();
@@ -67,7 +74,10 @@ public class CharacterWindow : MonoBehaviour
         {
             if (CharacterTagWindowList[i].GetComponent<CharacterTagWindow>().IsClicked)
             {
-                _cwCommonInfos.ShowCharacter(i);
+                int nbchar = i + _switchnumber;
+                if (nbchar > 2)
+                    nbchar = nbchar%3;
+                _cwCommonInfos.ShowCharacter(nbchar, i);
                 CharacterTagWindowList[i].GetComponent<CharacterTagWindow>().IsClicked = false;
             }
         }

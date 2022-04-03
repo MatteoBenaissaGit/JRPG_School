@@ -35,13 +35,13 @@ public class CW_CommonInfos : MonoBehaviour
             CharactersAnims.Add(CharactersInfosList[i].CharactersAnim);
             CharactersInfosList[i].CharactersAnim.SetActive(false);
         }
-        UpdateCharacterCommonInfos(0);
+        UpdateCharacterCommonInfos(0, 0);
 
     }
 
-    public void ShowCharacter(int characterNumber)
+    public void ShowCharacter(int characterNumber, int inumber)
     {
-        UpdateCharacterCommonInfos(characterNumber);
+        UpdateCharacterCommonInfos(characterNumber, inumber);
         for (int i = 0; i < CharactersInfosList.Count; i++)
         {
             if (i!=characterNumber)
@@ -61,7 +61,6 @@ public class CW_CommonInfos : MonoBehaviour
         {
             int animatorNumber = SpriteChangeNumberGetter(i);
             CharactersInfosList[i].CharactersAnim = CharactersAnims[animatorNumber];
-            UpdateCharacterCommonInfos(i);
         }
     }
     private int SpriteChangeNumberGetter(int i)
@@ -72,12 +71,12 @@ public class CW_CommonInfos : MonoBehaviour
         return animatorNumber;
     }
 
-    private void UpdateCharacterCommonInfos(int characterNumber)
+    private void UpdateCharacterCommonInfos(int characterNumber, int i)
     {
         CharactersInfosList[characterNumber].CharactersAnim.SetActive(true);
-        _name.text = _characterParameterList.CharactersListing[characterNumber].Name;
-        _icon.sprite = _characterParameterList.CharactersListing[characterNumber].Icon;
-        _life.fillAmount = _characterParameterList.CharactersListing[characterNumber].Life / 100;
+        _name.text = _characterParameterList.CharactersListing[i].Name;
+        _icon.sprite = _characterParameterList.CharactersListing[i].Icon;
+        _life.fillAmount = _characterParameterList.CharactersListing[i].Life / 100;
         _level.text = _characterParameterList.CharactersListing[characterNumber].Level.ToString();
         _exeperience.fillAmount = _characterParameterList.CharactersListing[characterNumber].ExperiencePoint / _characterParameterList.CharactersListing[characterNumber].ExperiencePointToUpgrade;
         //Stats
