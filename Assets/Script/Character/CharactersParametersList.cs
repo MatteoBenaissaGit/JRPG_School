@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,7 +17,7 @@ public class CharacterParameter
     public float ExperiencePointToUpgrade;
     public Sprite Icon;
     public Animator Animator;
-    public AnimatorController AnimatorController;
+    public RuntimeAnimatorController AnimatorController;
 }
 public class CharactersParametersList : MonoBehaviour
 {

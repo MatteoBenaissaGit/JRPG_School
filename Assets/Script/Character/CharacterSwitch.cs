@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 
 [Serializable]
@@ -9,12 +8,12 @@ public class CharactersAttribute
 {
     public string Name;
     public Animator Animator;
-    public AnimatorController AnimatorController;
+    public RuntimeAnimatorController AnimatorController;
 }
 public class CharacterSwitch : MonoBehaviour
 {
     [SerializeField] private CharactersParametersList _characterParametersList;
-    [HideInInspector] public List<AnimatorController> ControllersList;
+    [HideInInspector] public List<RuntimeAnimatorController> ControllersList;
     [HideInInspector] public List<string> NamesList;
     [HideInInspector] public List<Sprite> IconList;
     [HideInInspector] public List<float> LifeList;
@@ -41,7 +40,7 @@ public class CharacterSwitch : MonoBehaviour
         LifeList.Clear();
         for (int i = 0; i < _characterParametersList.CharactersListing.Count; i++)
         {
-            ControllersList.Add((AnimatorController)_characterParametersList.CharactersListing[i].Animator.runtimeAnimatorController);
+            ControllersList.Add((RuntimeAnimatorController)_characterParametersList.CharactersListing[i].Animator.runtimeAnimatorController);
             NamesList.Add(_characterParametersList.CharactersListing[i].Name);
             IconList.Add(_characterParametersList.CharactersListing[i].Icon);
             LifeList.Add(_characterParametersList.CharactersListing[i].Life);
