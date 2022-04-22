@@ -57,6 +57,7 @@ public class PlayerManager : MonoBehaviour
             if (_numberOfPlayedAllies == _numberOfAllies)
             {
                 NewRound();
+                Debug.Log("yayachukrut");
             }
             else
                 _currentMode = SelectionMode.AllyPick;
@@ -218,13 +219,18 @@ public class PlayerManager : MonoBehaviour
     {
         for (int i = 0; i < ListChars.Count; i++)
         {
-            Color newColor = ListChars[i].CombatSpriteRenderer.color;
-            newColor.a = 1f;
+            if (ListChars[i].IsStuned == false)
+            {
+                Color newColor = ListChars[i].CombatSpriteRenderer.color;
+                newColor.a = 1f;
 
-            ListChars[i].CombatSpriteRenderer.color = newColor;
+                ListChars[i].CombatSpriteRenderer.color = newColor;
 
-            ListChars[i].HasPlayed = false;
-            _numberOfPlayedAllies--;
+                ListChars[i].HasPlayed = false;
+                _numberOfPlayedAllies--;
+            }
+            else
+                ListChars[i].IsStuned = false;
         }
 
         if (_numberOfPlayedAllies == 0)
@@ -271,6 +277,14 @@ public class PlayerManager : MonoBehaviour
 
     public void StunPlayer(CharacterUI StunnedChara)
     {
+        Color tempColor = ListChars[StunnedChara.CharacterIndex].CombatSpriteRenderer.color;
+        tempColor.a = TransparencyValue;
 
+        ListChars[StunnedChara.CharacterIndex].CombatSpriteRenderer.color = tempColor;
+
+        ListChars[StunnedChara.CharacterIndex].HasPlayed = true;
+        ListChars[StunnedChara.CharacterIndex].IsStuned = true;
+
+        _numberOfPlayedAllies++;
     }
 }

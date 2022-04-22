@@ -154,6 +154,9 @@ public class EnemyManager : MonoBehaviour
             updatedHP = updatedHP / 2;
         }
 
+        if (AbilitiesManagerObj.GetComponent<AbilitiesManager>().UpdatedCanStun == true)
+            PlayerManagerObj.GetComponent<PlayerManager>().StunPlayer(Defender);
+
         targetedPlayer.HP -= updatedHP;
         targetedPlayer.Ego -= updatedEgo;
         targetedPlayer.CharaHealthBar.GetComponent<Bars>().SetHealth(targetedPlayer.HP);
@@ -187,20 +190,25 @@ public class EnemyManager : MonoBehaviour
 
         for (int i = 0; i < ListEnemies.Count; i++)
         {
-            Color newColor = ListEnemies[i].CombatSpriteRenderer.color;
-            newColor.a = 1f;
+            if (ListEnemies[i].IsStuned == false)
+            {
+                Color newColor = ListEnemies[i].CombatSpriteRenderer.color;
+                newColor.a = 1f;
 
-            ListEnemies[i].CombatSpriteRenderer.color = newColor;
+                ListEnemies[i].CombatSpriteRenderer.color = newColor;
 
-            ListEnemies[i].HasPlayed = false;
-            _numberOfPlayedEnemies--;
+                ListEnemies[i].HasPlayed = false;
+                _numberOfPlayedEnemies--;
 
-            _numberOfPlayableEnemies++;
-            _enemyPickerList.Add(_numberOfPlayableEnemies - 1);
+                _numberOfPlayableEnemies++;
+                _enemyPickerList.Add(_numberOfPlayableEnemies - 1);
+            }
+            else
+                ListEnemies[i].IsStuned = false;
+
+            if (_numberOfPlayedEnemies == 0)
+                _currentMode = SelectionMode.EnemyPick;
         }
-
-        if (_numberOfPlayedEnemies == 0)
-            _currentMode = SelectionMode.EnemyPick;
     }
 
     public void EndOfTurn()
